@@ -30,3 +30,4 @@ Python
     ```bash
     flask run
     ```
+7. Copy the url from the command line and paste it in chrome
