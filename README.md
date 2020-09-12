@@ -19,14 +19,14 @@ Python
 4. Go to the folder where you downloaded the project file
 
 5. Then run
-```bash
-set FLASK_APP=main.py
-```
+    ```bash
+    set FLASK_APP=main.py
+    ```
 
-```bash
-set FLASK_DEBUG=1
-```
+    ```bash
+    set FLASK_DEBUG=1
+    ```
 6. To run the app
-```bash
-flask run
-```
+    ```bash
+    flask run
+    ```
