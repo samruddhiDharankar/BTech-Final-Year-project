@@ -1,5 +1,3 @@
-# BE-P
-
 ## INSTALLATION
 ### Prerequisites
 **Python**
