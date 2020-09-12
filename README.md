@@ -2,7 +2,8 @@
 
 ## INSTALLATION
 ### Prerequisites
-Python
+**Python**
+<br />
 
 1. pip
     ```bash
@@ -31,3 +32,5 @@ Python
     flask run
     ```
 7. Copy the url from the command line and paste it in chrome
+
+<br />
