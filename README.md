@@ -5,17 +5,17 @@
 Python
 
 1. pip
-```bash
-pip install pip
-```
+    ```bash
+    pip install pip
+    ```
 2. Flask
-```bash
-pip install flask
-```
+    ```bash
+    pip install flask
+    ```
 3. Mysql
-```bash
-pip install flask-mysqldb
-```
+    ```bash
+    pip install flask-mysqldb
+    ```
 4. Go to the folder where you downloaded the project file
 
 5. Then run
