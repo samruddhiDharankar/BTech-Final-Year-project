@@ -19,9 +19,11 @@
 
 5. Then run
     ```bash
-    set FLASK_APP=main.py
+    set FLASK_APP=app.py
     ```
-
+    ```bash
+    set FLASK_ENV=development
+    ```
     ```bash
     set FLASK_DEBUG=1
     ```

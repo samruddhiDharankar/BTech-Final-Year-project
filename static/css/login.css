@@ -1,0 +1,100 @@
+body {
+    background-image: url("../css/images/bg-01.jpg");
+    background-size: cover;
+}
+#loginForm {
+    /* padding-top: 120px; */
+    margin-top: 10px;
+    margin-left: 25px;
+    /* padding-right: 60px; */
+    text-align: center;
+    /* margin-right: 220px; */
+    /* margin: 0 auto;  */
+    /* width:250px; */
+    /* padding-right: -50%; */
+}
+#box {
+    /* position: relative; */
+    width: 300px;
+    height: 350px;
+    margin: auto;
+    margin-top: 10%;
+    border-radius: 5px;
+    background: rgb(104, 69, 233);
+}
+p {
+    padding-top: 30px;
+    margin-right: -24px;
+    margin-left: 20px;
+    padding-bottom: 10px;
+    text-align: right;
+    font-size: 25px;
+    font-family: "Graphik Meetup",monospace  ;
+    font-weight: lighter;
+    color :rgb(128, 200, 228);
+}
+
+input[type="text"],
+input[type="password"] {
+    background: url(/static/css/images/user.png);
+    background-position: 7px 7px;
+    /* background-repeat: no-repeat; */
+    /* padding-left:30px; */
+    margin-top: 30px;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    width: 220px;
+    height: 32px;
+    border: none;
+    border-bottom: 1px solid #AAA;  
+    font-family: Poppins-Medium;
+    font-weight: 400;
+    
+    font-size: 17px;
+    transition: 0.2s ease;
+    border-radius: 5px;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    /* border-bottom: 2px solid #16a085;  */
+    /* color: #16a085; */
+    transition: 0.4s ease;
+}
+
+input[type="submit"] {
+    margin-top: 38px;
+    margin-left: 50px;
+    width: 120px;
+    height: 32px;
+    background: rgb(86, 31, 214);
+    border: none;
+    /* border-radius: 2px; */
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+    align-self : center;
+    display: block;
+    /* margin: 30 30 30 50; */
+    border-radius: 15px;
+
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+    opacity: 0.8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.1s ease;
+}
+
+input[type="submit"]:active {
+    opacity: 1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    transition: 0.1s ease;
+}
+
