@@ -31,6 +31,7 @@
     ```bash
     flask run
     ```
+    ![](static/css/images/cmd-running.png)
 7. Copy the url from the command line and paste it in chrome
 
 <br />
