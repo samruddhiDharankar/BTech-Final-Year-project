@@ -37,3 +37,7 @@
 7. Copy the url from the command line and paste it in chrome
 
 <br />
+
+**SCREENSHOTS**
+1. Login Page
+    ![](static/css/images/login-page.png)
