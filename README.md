@@ -31,6 +31,9 @@
     ```bash
     flask run
     ```
+    ![](static/css/images/cmd-running.png)
+    
+    **MAKE SURE THAT DEBUG MODE IS ON ELSE THE CSS WILL NOT WORK**
 7. Copy the url from the command line and paste it in chrome
 
 <br />
