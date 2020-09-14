@@ -17,7 +17,7 @@
     ```
 4. Go to the folder where you downloaded the project file
 
-5. Then run
+5. Then run once
     ```bash
     set FLASK_APP=app.py
     ```
