@@ -10,26 +10,23 @@
 	</head>    
 	
         <body>
-			<div id="box" class="container">
+			<div class="container" id="box" method="POST">
 				<div class="row">
-					<div class="col-md-6" id="loginForm">   
-						
-							<p>Log In</p>
-							<form action="" method="POST">
-								<div class="form-group">
-									<input type="text" class="form-control" placeholder="Username" name="username" value="{{request.form.username}}">
-								</div>
-								<div class="form-group">
-									<input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
-								</div>
-								<div class="form-group">
-									<input class="btn btn-default" type="submit" value="login">
-								</div>
-							</form>
+					<div class="col d-flex justify-content-center">
+						<div class="card">
+							<div class="card-body">
+								<form action="/caseManage" class="form">
+									<label id="label1">Username</label><br>
+									<input type="text" class="form-control" placeholder="Enter Username" name="username"><br>
+									<label id="label2">Password</label><br>
+									<input type="password" class="form-control" placeholder="Enter Password" name="password"><br><br>
+									<input type="submit" class="btn btn-block btn-lg" value="login">
+								</form>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>
-
 
         
             

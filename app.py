@@ -10,11 +10,7 @@ def login():
 			attempted_username = request.form['username']
 			attempted_password = request.form['password']
 
-			if attempted_username == "admin" and attempted_password == "password":
-				return redirect(url_for('lef'))
-				
-			else:
-				error = "invalid credentials. Try again"
+			
 
 		return render_template("login.html", error = error)
 
@@ -26,9 +22,13 @@ def login():
 
 	return render_template("login.html")
 
-@app.route('/about')
-def lef():
+@app.route('/caseManage')
+def caseMan():
 	return render_template("caseManage.html")
+
+@app.route('/newCase')
+def Case():
+	return render_template("newCase.html")	
 
 if __name__ == "__main__":
 	app.debug = True

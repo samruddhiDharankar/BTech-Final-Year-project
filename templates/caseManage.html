@@ -10,6 +10,25 @@
 	</head>    
 	
         <body>
-            <p>asasa</p>
+            <div class="container" id="caseBox" method="POST">
+				<div class="row">
+					<div class="col d-flex justify-content-center">
+						<div class="card">
+							<div class="card-body">
+                                <form action="" class="form">
+                                    <label id="label1">Case ID</label><br>
+									<input type="text" class="form-control" placeholder="Enter Case ID" name="caseID"><br>
+                                    <label id="label1">Investigator ID</label><br>
+                                    <input type="text" class="form-control" placeholder="Enter Investigator ID" name="investigatorID"><br>
+                                    <label id="label1">Password</label><br>
+                                    <input type="password" class="form-control" placeholder="Enter Case Password" name="casePassword"><br><br>
+									<input type="submit" class="btn btn-block btn-lg" value="Load Case">
+                                </form>
+                                <p style="color: aliceblue;">Create new Case? <a href="/templates/newCase.html" style="color: aqua;">click here</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </body>
 </html>

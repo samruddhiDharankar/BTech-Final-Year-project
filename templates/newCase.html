@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+		<!-- <link rel= "stylesheet" href= "{{ url_for('static',filename='css/main.css') }}"> -->
+		<link rel= "stylesheet" href= "/static/css/newCase.css">
+      
+		<title></title>
+		
+	</head>    
+	
+        <body>
+            <div class="container" id="caseBox" method="POST,GET">
+				<div class="row">
+					<div class="col d-flex justify-content-center">
+						<div class="card">
+							<div class="card-body">
+                                <form action="/newCase" class="form">
+                                    <label id="label1">Case ID</label><br>
+                                    <input type="text" class="form-control" placeholder="Enter Case ID" name="caseID"><br>
+                                    
+                                    <label id="label1">Case Name</label><br>
+									<input type="text" class="form-control" placeholder="Enter Case Name" name="caseName"><br>
+                                    
+                                    <label id="label1">Description</label><br>
+									<input type="text" class="form-control" placeholder="Add Description" name="descrp"><br>
+
+                                    <label id="label1">Investigator Assigned</label><br>
+                                    <input type="text" class="form-control" placeholder="Enter your name" name="investigatorName"><br>
+                                    
+                                    <label id="label1">Password</label><br>
+                                    <input type="password" class="form-control" placeholder="Enter Case Password" name="casePassword"><br><br>
+                                    
+                                    <input type="submit" class="btn btn-block btn-lg" value="Create Case and Load">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </body>
+</html>

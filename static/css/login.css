@@ -13,16 +13,45 @@ body {
     /* width:250px; */
     /* padding-right: -50%; */
 }
-#box {
-    /* position: relative; */
-    width: 300px;
+.card {
+    padding-top: 10px;
+    width: 320px;
     height: 350px;
-    margin: auto;
+    background-color: rgb(76, 100, 206);
+}
+#box {
+    
     margin-top: 10%;
     border-radius: 5px;
-    background: rgb(104, 69, 233);
+    
+    } 
+#label1, #label2 {
+    color: rgb(255,255,255);
+    cursor: default;
+    font-family: 'Roboto', sans-serif;
+}
+.btn {
+    background-color: rgb(152, 205, 235);
+    
+    /* background: rgb(2,0,36); */
+    /* background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(87,169,217,1) 0%, rgba(140,77,212,1) 100%, rgba(195,59,232,1) 100%); */
+
 }
 
+input[type="submit"] {
+    margin-top: 7px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+    opacity: 0.8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.1s ease;
+}
+/*
 p {
     padding-top: 30px;
     margin-right: -24px;
@@ -35,12 +64,15 @@ p {
     color :rgb(128, 200, 228);
 }
 
+input {
+    background-color: antiquewhite;
+}
+
 input[type="text"],
 input[type="password"] {
     background: url(/static/css/images/user.png);
     background-position: 7px 7px;
-    /* background-repeat: no-repeat; */
-    /* padding-left:30px; */
+    
     margin-top: 30px;
     display: block;
     box-sizing: border-box;
@@ -49,21 +81,16 @@ input[type="password"] {
     width: 220px;
     height: 32px;
     border: none;
-    border-bottom: 1px solid #AAA;  
+    
     font-family: Poppins-Medium;
     font-weight: 400;
     
     font-size: 17px;
-    transition: 0.2s ease;
+    
     border-radius: 5px;
 }
 
-input[type="text"]:focus,
-input[type="password"]:focus {
-    /* border-bottom: 2px solid #16a085;  */
-    /* color: #16a085; */
-    transition: 0.4s ease;
-}
+
 
 input[type="submit"] {
     margin-top: 38px;
@@ -72,7 +99,7 @@ input[type="submit"] {
     height: 32px;
     background: rgb(86, 31, 214);
     border: none;
-    /* border-radius: 2px; */
+   
     color: #FFF;
     font-family: 'Roboto', sans-serif;
     font-weight: 500;
@@ -81,7 +108,7 @@ input[type="submit"] {
     cursor: pointer;
     align-self : center;
     display: block;
-    /* margin: 30 30 30 50; */
+   
     border-radius: 15px;
 
 }
@@ -97,5 +124,5 @@ input[type="submit"]:active {
     opacity: 1;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
     transition: 0.1s ease;
-}
+} */
 
