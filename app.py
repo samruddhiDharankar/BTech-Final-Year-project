@@ -3,18 +3,18 @@ app = Flask(__name__)
 
 @app.route('/')
 def login():
+	
 	error = ""
 	try:
 		if request.method == "POST":
 			attempted_username = request.form['username']
 			attempted_password = request.form['password']
 
-			# if attempted_username == "admin" and attempted_password == "password":
-            #     return "success"
-            #     # return redirect(url_for('result'))
-
-			# else:
-			# 	error = "invalid credentials. Try again"
+			if attempted_username == "admin" and attempted_password == "password":
+				return redirect(url_for('lef'))
+				
+			else:
+				error = "invalid credentials. Try again"
 
 		return render_template("login.html", error = error)
 
@@ -26,5 +26,10 @@ def login():
 
 	return render_template("login.html")
 
-	if __name__ == "__main__":
-		app.run(debug = True)
+@app.route('/about')
+def lef():
+	return render_template("caseManage.html")
+
+if __name__ == "__main__":
+	app.debug = True
+	app.run()

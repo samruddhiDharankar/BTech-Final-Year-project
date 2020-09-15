@@ -1,8 +1,9 @@
+<!DOCTYPE html>
 <html>
     <head>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 		<!-- <link rel= "stylesheet" href= "{{ url_for('static',filename='css/main.css') }}"> -->
-		<link rel= "stylesheet" href= "/static/css/login.css">
+		<link rel= "stylesheet" href= "static/css/login.css">
       
 		<title></title>
 		
@@ -12,18 +13,19 @@
 			<div id="box" class="container">
 				<div class="row">
 					<div class="col-md-6" id="loginForm">   
-						<p>Log In</p>
-						<form action="" method="POST">
-							<div class="form-group">
-								<input type="text" class="form-control" placeholder="Username" name="username" value="{{request.form.username}}">
-							</div>
-							<div class="form-group">
-								<input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
-							</div>
-							<div class="form-group">
-								<input class="btn btn-default" type="submit" value="login">
-							</div>
-						</form>	
+						
+							<p>Log In</p>
+							<form action="" method="POST">
+								<div class="form-group">
+									<input type="text" class="form-control" placeholder="Username" name="username" value="{{request.form.username}}">
+								</div>
+								<div class="form-group">
+									<input type="password" class="form-control" placeholder="Password" name="password" value="{{request.form.password}}">
+								</div>
+								<div class="form-group">
+									<input class="btn btn-default" type="submit" value="login">
+								</div>
+							</form>
 					</div>
 				</div>
 			</div>
