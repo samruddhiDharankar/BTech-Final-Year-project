@@ -30,6 +30,11 @@ def caseMan():
 def Case():
 	return render_template("newCase.html")	
 
+@app.route('/overview')
+def over():
+	return render_template("overview.html")	
+
+
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
