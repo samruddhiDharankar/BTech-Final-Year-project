@@ -40,4 +40,8 @@
 
 **SCREENSHOTS**
 1. Login Page
-    ![](static/css/images/login-page.png)
+    ![](static/css/images/screenshots/Login.png)
+2. Load Case Page
+    ![](static/css/images/screenshots/loadCase.png)
+3. New Case Page
+    ![](static/css/images/screenshots/newCase.png)
