@@ -4,7 +4,7 @@ from datetime import datetime
 
 app = Flask(__name__)
 
-conn = MySQLdb.connect(host="sql12.freemysqlhosting.net",user="sql12366978",password="PlNdNPiBmB",db="sql12366978") 
+conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="databast_be") 
 
 @app.route('/', methods=['GET'])
 def index():
@@ -19,13 +19,34 @@ def login():
 		# print(request.method)
 		attempted_username = request.form.get("username")
 		attempted_password = request.form.get("password")
+		
+		cursor = conn.cursor()
+		query = "SELECT password FROM user WHERE userName = '%s'" % attempted_username
+		# value = (attempted_username)
+		cursor.execute(query)
+		records = cursor.fetchall()
+		for row in records:
+		 	Pass = row[0]
+		print(Pass)
+		print("aattempted", attempted_password)
+		
+		if(Pass == attempted_password):
+			print("matched")
+			now = datetime.now()
+			query1 = "INSERT INTO session (loginTime,userID_fk) VALUES (%s, (SELECT userID FROM user WHERE userName=%s))"
+
+			val1 =  (now ,attempted_username)
+			cursor.execute(query1,val1)
+			conn.commit()
+			return redirect(url_for('caseManage'))
+
 		# print(attempted_username)
 		# print(attempted_password)
-		cursor = conn.cursor()
-		now = datetime.now()
-		query1 = "INSERT INTO user (userName,password) VALUES (%s, %s)"
-		val1 = (attempted_username,attempted_password)
-		cursor.execute(query1, val1)
+		
+		# now = datetime.now()
+		# query1 = "INSERT INTO user (userName,password) VALUES (%s, %s)"
+		# val1 = (attempted_username,attempted_password)
+		# cursor.execute(query1, val1)
 
 		# query2 = "SELECT userID FROM user WHERE userName = '%s'" % attempted_username
 		# cursor.execute(query2)
@@ -35,15 +56,11 @@ def login():
 		# 	userid = row[0]
 		# print("id", userid)
 		
-		print("yeye")
-		query = "INSERT INTO session (loginTime,userID_fk) VALUES (%s, (SELECT userID FROM user WHERE userName=%s))"
-
-		# query3 = "UPDATE session SET loginTime = %s userID = %s WHERE userID = %s" 
-		val =  (now ,attempted_username)
-		cursor.execute(query,val)
-		print("eee")
-		conn.commit()
-		return redirect(url_for('caseManage'))
+		# print("yeye")
+		
+		# print("eee")
+		# conn.commit()
+		# return redirect(url_for('caseManage'))
 	
 	return render_template("login.html")
 	
