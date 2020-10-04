@@ -15,22 +15,24 @@
 					<div class="col d-flex justify-content-center">
 						<div class="card">
 							<div class="card-body">
-                                <form action="/overview" class="form">
+                                <form action="{{ url_for('newCase') }}" class="form" method="POST">
                                     
                                     <label id="label1">Case ID</label><br>
-                                    <input type="text" class="form-control" placeholder="Enter Case ID" name="caseID" required><br>
-                                    
+                                    <input type="text" class="form-control" placeholder="Enter Case ID" name="caseID" value="{{request.form.caseID}}" required><br>
+                                    {% if feedback %}
+                                        <p class="text float-left">{{ feedback }}</p><br><br>
+                                    {% endif %}
                                     <label id="label1">Case Name</label><br>
-									<input type="text" class="form-control" placeholder="Enter Case Name" name="caseName" required><br>
+									<input type="text" class="form-control" placeholder="Enter Case Name" name="caseName" value="{{request.form.caseName}}" required><br>
                                     
                                     <label id="label1">Description</label><br>
-									<input type="text" class="form-control" placeholder="Add Description" name="descrp"><br>
+									<input type="text" class="form-control" placeholder="Add Description" name="description" value="{{request.form.description}}"><br>
 
                                     <label id="label1">Investigator Assigned</label><br>
-                                    <input type="text" class="form-control" placeholder="Enter Investigator's Name" name="investigatorName" required><br>
+                                    <input type="text" class="form-control" placeholder="Enter Investigator's Name" name="investigatorName" value="{{request.form.investigatorName}}" required><br>
                                     
                                     <label id="label1">Create Case Password</label><br>
-                                    <input type="password" class="form-control" placeholder="Enter Case Password" name="casePassword" required><br><br>
+                                    <input type="password" class="form-control" placeholder="Enter Case Password" name="casePassword" value="{{request.form.casePassword}}" required><br><br>
                                     
                                     <input type="submit" class="btn btn-block btn-lg" value="Create Case and Load">
                                 </form>
