@@ -17,11 +17,9 @@
 						<div class="card">
 							<div class="card-body">
 								<form action="{{ url_for('login') }}" class="form" method="POST">
-									<label id="label1">Username</label><br>
-									<input type="text" class="form-control" placeholder="Enter Username" name="username" value="{{request.form.username}}" required><br>
-									<label id="label2">Password</label><br>
-									<input type="password" class="form-control" placeholder="Enter Password" name="password" value="{{request.form.password}}" required><br><br>
-									<input type="submit" class="btn btn-block btn-lg" value="login">
+									<label for="select">Select VMid</label>
+									<input type="text" class="form-control" placeholder="VMID" name="txtbox" value="" required><br>
+									<input type="Fetch" class="btn btn-block btn-fc" value="Fetch">
 								</form>
 							</div>
 						</div>
