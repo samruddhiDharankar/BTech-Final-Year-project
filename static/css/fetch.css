@@ -1,0 +1,125 @@
+#loginForm {
+    /* padding-top: 120px; */
+    margin-top: 10px;
+    margin-left: 25px;
+    /* padding-right: 60px; */
+    text-align: center;
+    /* margin-right: 220px; */
+    /* margin: 0 auto;  */
+    /* width:250px; */
+    /* padding-right: -50%; */
+}
+.card {
+    padding-top: 10px;
+    width: 320px;
+    height: 350px;
+    background-color: rgb(76, 100, 206);
+}
+#box {
+    
+    margin-top: 10%;
+    border-radius: 5px;
+    
+    } 
+#label1, #label2 {
+    color: rgb(255,255,255);
+    cursor: default;
+    font-family: 'Roboto', sans-serif;
+}
+.btn {
+    background-color: rgb(152, 205, 235);
+    
+    /* background: rgb(2,0,36); */
+    /* background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(87,169,217,1) 0%, rgba(140,77,212,1) 100%, rgba(195,59,232,1) 100%); */
+
+}
+
+input[type="submit"] {
+    margin-top: 7px;
+    text-transform: uppercase;
+    font-family: 'Roboto', sans-serif;
+    color: #0d3b4c;
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+    opacity: 0.8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.1s ease;
+}
+/*
+p {
+    padding-top: 30px;
+    margin-right: -24px;
+    margin-left: 20px;
+    padding-bottom: 10px;
+    text-align: right;
+    font-size: 25px;
+    font-family: "Graphik Meetup",monospace  ;
+    font-weight: lighter;
+    color :rgb(128, 200, 228);
+}
+
+input {
+    background-color: antiquewhite;
+}
+
+input[type="text"],
+input[type="password"] {
+    background: url(/static/css/images/user.png);
+    background-position: 7px 7px;
+    
+    margin-top: 30px;
+    display: block;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+    padding-left: 30px;
+    width: 220px;
+    height: 32px;
+    border: none;
+    
+    font-family: Poppins-Medium;
+    font-weight: 400;
+    
+    font-size: 17px;
+    
+    border-radius: 5px;
+}
+
+
+
+input[type="submit"] {
+    margin-top: 38px;
+    margin-left: 50px;
+    width: 120px;
+    height: 32px;
+    background: rgb(86, 31, 214);
+    border: none;
+   
+    color: #FFF;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 500;
+    text-transform: uppercase;
+    transition: 0.1s ease;
+    cursor: pointer;
+    align-self : center;
+    display: block;
+   
+    border-radius: 15px;
+
+}
+
+input[type="submit"]:hover,
+input[type="submit"]:focus {
+    opacity: 0.8;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    transition: 0.1s ease;
+}
+
+input[type="submit"]:active {
+    opacity: 1;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.4);
+    transition: 0.1s ease;
+} */
+
