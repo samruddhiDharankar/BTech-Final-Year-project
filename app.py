@@ -20,7 +20,7 @@ def login():
 		# print(request.method)
 		attempted_username = request.form.get("username")
 		attempted_password = request.form.get("password")
-		
+		# print(attempted_username,attempted_password)
 		# cursor = conn.cursor()
 		query = "SELECT password FROM user WHERE userName = '%s'" % attempted_username
 		# value = (attempted_username)
@@ -73,7 +73,7 @@ def caseManage():
 		attempted_investigatorID = request.form.get("investigatorID")
 		attempted_casePassword = request.form.get("casePassword")
 
-		query2 = "SELECT caseID FROM case_table WHERE caseID = '%s'" % attempted_caseID"
+		query2 = "SELECT caseID FROM case_table WHERE caseID = '%s'" % attempted_caseID
 		cursor.execute(query2)
 		records = cursor.fetchall()
 		print("Total number of rows is: ", cursor.rowcount)
@@ -136,6 +136,7 @@ def newCase():
 
 @app.route('/overview')
 def overview():
+	# if caseID == caseID_fk in findings table h to display all rows for caseID 
 	return render_template("overview.html")	
 
 
