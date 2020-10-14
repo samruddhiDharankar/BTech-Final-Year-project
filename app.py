@@ -50,29 +50,7 @@ def login():
 			cursor.execute(query1,val1)
 			conn.commit()
 			return redirect(url_for('caseManage'))
-
-		# print(attempted_username)
-		# print(attempted_password)
-		
-		# now = datetime.now()
-		# query1 = "INSERT INTO user (userName,password) VALUES (%s, %s)"
-		# val1 = (attempted_username,attempted_password)
-		# cursor.execute(query1, val1)
-
-		# query2 = "SELECT userID FROM user WHERE userName = '%s'" % attempted_username
-		# cursor.execute(query2)
-		# records = cursor.fetchall()
-		# print("Total number of rows is: ", cursor.rowcount)
-		# for row in records:
-		# 	userid = row[0]
-		# print("id", userid)
-		
-		# print("yeye")
-		
-		# print("eee")
-		# conn.commit()
-		# return redirect(url_for('caseManage'))
-	
+			
 	return render_template("login.html")
 	
 
