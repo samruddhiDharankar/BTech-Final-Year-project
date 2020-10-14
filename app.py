@@ -1,18 +1,25 @@
-from flask import Flask, render_template, request, redirect, flash, url_for
+from flask import Flask, render_template, request, redirect, flash, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL,MySQLdb
 from MySQLdb import escape_string as thwart
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
+
+from flask_session import Session
+
   
 app = Flask(__name__)
 
+SESSION_TYPE = 'filesystem'
+app.config.from_object(__name__)
+Session(app)
+
 #SqlAlchemy Database Configuration With Mysql
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/db_name'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/databast_be'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #for regular mysql
-conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="db_name") 
+conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="databast_be") 
 cursor = conn.cursor()
 
 
@@ -23,23 +30,21 @@ def index():
 
 @app.route('/login', methods=['GET','POST'])
 def login():
-	# print("hello")
+
 	# print(request.method)
-	
 	if(request.method == "POST"):
 		# print(request.method)
 		attempted_username = request.form.get("username")
 		attempted_password = request.form.get("password")
-		# print(attempted_username,attempted_password)
-		# cursor = conn.cursor()
+		
 		query = "SELECT password FROM user WHERE userName = '%s'" % attempted_username
-		# value = (attempted_username)
+		
 		cursor.execute(query)
 		records = cursor.fetchall()
 		for row in records:
 		 	Pass = row[0]
 		print(Pass)
-		print("aattempted", attempted_password)
+		print("attempted", attempted_password)
 		
 		if(Pass == attempted_password):
 			print("matched")
@@ -49,8 +54,11 @@ def login():
 			val1 =  (now ,attempted_username)
 			cursor.execute(query1,val1)
 			conn.commit()
+
+			session['user_name'] = attempted_username					#session saved for USER_NAME	
+
 			return redirect(url_for('caseManage'))
-			
+
 	return render_template("login.html")
 	
 
@@ -60,13 +68,16 @@ def caseManage():
 		attempted_caseID = request.form.get("caseID")
 		attempted_investigatorID = request.form.get("investigatorID")
 		attempted_casePassword = request.form.get("casePassword")
+		
 
+		
 		query2 = "SELECT caseID FROM case_table WHERE caseID = '%s'" % attempted_caseID
 		cursor.execute(query2)
 		records = cursor.fetchall()
 		print("Total number of rows is: ", cursor.rowcount)
 
 		if(cursor.rowcount == 1):
+			session['case_id'] = attempted_caseID
 			return redirect(url_for('Overview'))
 
 
@@ -82,6 +93,9 @@ def newCase():
 		attempted_investigatorName = request.form.get("investigatorName")
 		attempted_casePassword = request.form.get("casePassword")
 		
+		sequence = session.get('user_name')
+		print("seqqqq" + sequence)
+		session['case_id'] = attempted_caseID	
 		val1 = (attempted_caseID,attempted_caseName,attempted_description,attempted_casePassword)
 		print("val", val1)
 
@@ -98,23 +112,12 @@ def newCase():
 			query1 = "INSERT INTO case_table(caseID,caseName,description,casePassword) VALUES(%s, %s, %s, %s)"
 			cursor.execute(query1, val1)
 		
-			#SELECT userID FROM (USER) TABLE
-			# query2 = "SELECT userID FROM user WHERE userName = '%s'" % attempted_investigatorName
-			# cursor.execute(query2)
-			# records = cursor.fetchall()
-			# print("Total number of rows is: ", cursor.rowcount)
-			# for row in records:
-			# 	userid = row[0]
-			# print("id", userid)
-
-			# query3 = "INSERT INTO case_user_mapping(caseID_fk,userID_fk) VALUES(%s, (SELECT userID FROM user WHERE userName=%s))"
-			
 			#INSERT INTO (CASE_USER_MAPPING) TABLE
 			cursor.execute('''INSERT INTO case_user_mapping(caseID_fk,userID_fk) VALUES(%s, (SELECT userID FROM user WHERE userName=%s))''', (attempted_caseID,attempted_investigatorName))
 			
-			now = datetime.now()
-			#INSERT INTO THE (FINDINGS) TABLE
-			cursor.execute('''INSERT INTO findings(caseID_fk,date) VALUES(%s, %s)''', (attempted_caseID,now))
+			# now = datetime.now()
+			# #INSERT INTO THE (FINDINGS) TABLE
+			# cursor.execute('''INSERT INTO findings(caseID_fk,Datetime_of_the_Finding) VALUES(%s, %s)''', (attempted_caseID,now))
 		
 		
 		conn.commit()
@@ -126,23 +129,30 @@ def newCase():
 #Finding table in database db_name
 db = SQLAlchemy(app)
 class Finding(db.Model):
-    __tablename__ = 'Finding'
-    id = db.Column('id',db.Integer, primary_key = True, autoincrement=True)
-    Description = db.Column('Description',db.Text)
-    Evidence_Details = db.Column('Evidence_Details',db.Text)
-    Datetime_of_the_Finding = db.Column('Datetime_of_the_Finding',db.DateTime)
+	__tablename__ = 'Finding'
+	findingID = db.Column('findingID',db.Integer, primary_key = True, autoincrement=True)
+	user_name = db.Column('user_name',db.Text) 
+	caseID_fk = db.Column('caseID_fk',db.Integer) 
+	Description = db.Column('Description',db.Text)
+	Evidence_Details = db.Column('Evidence_Details',db.Text)
+	# File = db.Column('File',db.LargeBinary)
+	Datetime_of_the_Finding = db.Column('Datetime_of_the_Finding',db.DateTime)
   
-    def __init__(self, Description, Evidence_Details, Datetime_of_the_Finding):
-        self.Description = Description
-        self.Evidence_Details = Evidence_Details
-        self.Datetime_of_the_Finding = Datetime_of_the_Finding
+	def __init__(self, user_name,caseID_fk, Description, Evidence_Details, Datetime_of_the_Finding):
+		self.user_name = user_name
+		self.caseID_fk = caseID_fk
+		self.Description = Description
+		self.Evidence_Details = Evidence_Details
+		self.Datetime_of_the_Finding = Datetime_of_the_Finding
 
 db.create_all()
 
 @app.route('/Overview', methods = ['POST','GET'])
 def Overview():
-    all_data = Finding.query.all()
-    return render_template("Overview.html", Finding = all_data)
+	case_id = session.get('case_id')
+	print("caseIDDDD" + case_id)
+	all_data = Finding.query.all()
+	return render_template("Overview.html", Finding = all_data)
 
 #insert data to mysql database via html forms
 @app.route('/insert', methods = ['POST'])
@@ -152,8 +162,10 @@ def insert():
 		Evidence_Details = request.form('Evidence_details')
 		# File = request.form('File')
 		Datetime_of_the_Finding = request.form('findingtime')
+		name = session.get('user_name')
+		case_id = session.get('case_id')
 
-		my_data = Finding(Description, Evidence_Details, Datetime_of_the_Finding)
+		my_data = Finding(name,case_id,Description, Evidence_Details, Datetime_of_the_Finding)
 		db.session.add(my_data)
 		db.session.commit()
 
