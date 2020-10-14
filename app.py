@@ -1,12 +1,22 @@
 from flask import Flask, render_template, request, redirect, flash, url_for
+from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL,MySQLdb
 from MySQLdb import escape_string as thwart
 from datetime import datetime
-
+from flask_sqlalchemy import SQLAlchemy
+  
 app = Flask(__name__)
 
-conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="databast_be") 
+#SqlAlchemy Database Configuration With Mysql
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/db_name'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+#for regular mysql
+conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="db_name") 
 cursor = conn.cursor()
+
+
+
 @app.route('/', methods=['GET'])
 def index():
 	return redirect(url_for('login'))
@@ -134,11 +144,44 @@ def newCase():
 
 	return render_template("newCase.html")	
 
-@app.route('/overview')
-def overview():
-	# if caseID == caseID_fk in findings table h to display all rows for caseID 
-	return render_template("overview.html")	
 
+#Finding table in database db_name
+db = SQLAlchemy(app)
+class Finding(db.Model):
+    __tablename__ = 'Finding'
+    id = db.Column('id',db.Integer, primary_key = True, autoincrement=True)
+    Description = db.Column('Description',db.Text)
+    Evidence_Details = db.Column('Evidence_Details',db.Text)
+    # File = db.Column('File',db.LargeBinary)
+    Datetime_of_the_Finding = db.Column('Datetime_of_the_Finding',db.DateTime)
+  
+    def __init__(self, Description, Evidence_Details, Datetime_of_the_Finding):
+        self.Description = Description
+        self.Evidence_Details = Evidence_Details
+        # self.File = File
+        self.Datetime_of_the_Finding = Datetime_of_the_Finding
+
+db.create_all()
+
+@app.route('/Overview', methods = ['POST','GET'])
+def Overview():
+    all_data = Finding.query.all()
+    return render_template("Overview.html", Finding = all_data)
+
+#insert data to mysql database via html forms
+@app.route('/insert', methods = ['POST'])
+def insert():
+	if request.method == 'POST':
+		Description = request.form('Description_of_the_Finding')
+		Evidence_Details = request.form('Evidence_details')
+		# File = request.form('File')
+		Datetime_of_the_Finding = request.form('findingtime')
+
+		my_data = Finding(Description, Evidence_Details, Datetime_of_the_Finding)
+		db.session.add(my_data)
+		db.session.commit()
+
+		return redirect(url_for('Overview'))
 
 if __name__ == "__main__":
 	app.debug = True
