@@ -67,7 +67,7 @@ def caseManage():
 		print("Total number of rows is: ", cursor.rowcount)
 
 		if(cursor.rowcount == 1):
-			return redirect(url_for('overview'))
+			return redirect(url_for('Overview'))
 
 
 	
@@ -130,13 +130,11 @@ class Finding(db.Model):
     id = db.Column('id',db.Integer, primary_key = True, autoincrement=True)
     Description = db.Column('Description',db.Text)
     Evidence_Details = db.Column('Evidence_Details',db.Text)
-    # File = db.Column('File',db.LargeBinary)
     Datetime_of_the_Finding = db.Column('Datetime_of_the_Finding',db.DateTime)
   
     def __init__(self, Description, Evidence_Details, Datetime_of_the_Finding):
         self.Description = Description
         self.Evidence_Details = Evidence_Details
-        # self.File = File
         self.Datetime_of_the_Finding = Datetime_of_the_Finding
 
 db.create_all()
