@@ -151,24 +151,27 @@ db.create_all()
 def Overview():
 	case_id = session.get('case_id')
 	print("caseIDDDD" + case_id)
-	all_data = Finding.query.all()
+	all_data = Finding.query.filter_by(caseID_fk=case_id).all()
 	return render_template("Overview.html", Finding = all_data)
 
 #insert data to mysql database via html forms
 @app.route('/insert', methods = ['POST'])
 def insert():
 	if request.method == 'POST':
-		Description = request.form('Description_of_the_Finding')
-		Evidence_Details = request.form('Evidence_details')
-		# File = request.form('File')
-		Datetime_of_the_Finding = request.form('findingtime')
+		Description = request.form['Description_of_the_Finding']
+		Evidence_Details = request.form['Evidence_details']
+		#File = request.form('File')
+		Datetime_of_the_Finding = request.form['findingtime']
 		name = session.get('user_name')
 		case_id = session.get('case_id')
 
-		my_data = Finding(name,case_id,Description, Evidence_Details, Datetime_of_the_Finding)
-		db.session.add(my_data)
-		db.session.commit()
-
+		my_data123 = (name, case_id, Description, Evidence_Details, Datetime_of_the_Finding)
+		query123 = "INSERT INTO Finding(user_name,caseID_fk,Description,Evidence_Details,Datetime_of_the_Finding) VALUES(%s, %s, %s, %s, %s)"
+		cursor.execute(query123, my_data123)
+		conn.commit()
+		#my_data = Finding(name, case_id, Description, Evidence_Details, Datetime_of_the_Finding)
+		#db.session.add(my_data)
+		#db.session.commit()
 		return redirect(url_for('Overview'))
 
 if __name__ == "__main__":
