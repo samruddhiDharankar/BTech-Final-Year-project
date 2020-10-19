@@ -174,6 +174,10 @@ def insert():
 		#db.session.commit()
 		return redirect(url_for('Overview'))
 
+@app.route('/eviRepo', methods = ['POST','GET'])
+def eviRepo():
+	return render_template("eviRepo.html")	
+	
 if __name__ == "__main__":
 	app.debug = True
 	app.run()
