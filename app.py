@@ -173,6 +173,14 @@ def insert():
 		#db.session.add(my_data)
 		#db.session.commit()
 		return redirect(url_for('Overview'))
+	
+#display four values from sql table file
+@app.route('/')
+def display_tableinfo(): 
+    cursor.execute("select * from vmdb") 
+    data = cursor.fetchall() #data from database 
+    return render_template("display_table.html", value=data) 
+
 
 @app.route('/eviRepo', methods = ['POST','GET'])
 def eviRepo():
