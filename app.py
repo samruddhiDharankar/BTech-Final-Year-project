@@ -128,7 +128,7 @@ def newCase():
 
 	return render_template("newCase.html")	
 
-@app.route('/', methods=['GET'])
+@app.route('/fetch', methods=['GET'])
 def index1():
 	return redirect(url_for('fetch'))
 
@@ -137,7 +137,7 @@ def index1():
 @app.route('/fetch', methods=['GET','POST'])
 def fetch():
 
-	print(request.method)
+	#print(request.method)
 	cursor = conn.cursor()
 
 	if(request.method == "GET"or "POST"):
