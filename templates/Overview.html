@@ -14,11 +14,18 @@
 
 <style>
 
+.div1 {
+  margin-right: 100px;
+  margin-left: 100px;
+  margin-bottom: 250px;
+}
+
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
+
 
 .button {
   border: none;
@@ -44,22 +51,18 @@ td, th {
 tr:nth-child(even) {
   background-color: 000003;
 }
+
 </style>
 </head>
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-  
-  <div class="container-fluid">
-  <!-- <div class="navbar-header">
-    <a class="navbar-brand" href="#">Forex</a>
-  </div> -->
-  
+
     <ul class="nav navbar-nav">
-      <li class="active"><a href="#">Overview</a></li>
-      <li><a href="/eviRepo.html">Evidence Repo</a></li>
-      <li><a href="#">Analysis</a></li>
-      <li><a href="#">Memory</a></li>
+      <li class="active"><a href="/Overview">Overview</a></li>
+      <li><a href="/fetch">Evidence Repo</a></li>
+      <li><a href="/Analysis">Analysis</a></li>
+      <li><a href="/display_table">Memory</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
@@ -68,7 +71,7 @@ tr:nth-child(even) {
           <li><a href="#">Switch User</a></li>
         </ul>
       </li>
-      <li><a href="#"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span>Log Out</button></a></li>
+      <li><a href="/login"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span>Log Out</button></a></li>
     </ul>
   </div>
 </nav>
@@ -76,9 +79,13 @@ tr:nth-child(even) {
 </br>
 </br>
 </br></br></br></br>
+
+
+<div class="div1">
 <button align="right" id="but" type="button" style="float: right;" data-toggle="modal" data-target="#mymodal">
 New Finding Entry
 </button>
+
 
 </br></br>
 
@@ -87,7 +94,9 @@ New Finding Entry
 </h2>
 </br>
 
+
 <table>
+
   <tr>
     <th>Description</th>
     <th>Evidence details related to Finding</th>
@@ -103,9 +112,10 @@ New Finding Entry
   {% endfor %}
 
 </table>
+</div>
 
 <!-- Modal Add Finding-->
-<div id="mymodal" class="modal fade" role="dialog">
+    <div id="mymodal" class="modal fade" role="dialog">
     <div class="modal-dialog">
     <div class="modal-content">
     <div class="modal-header"><h4 class="modal-title">New Finding Entry</h4></div>
@@ -117,6 +127,7 @@ New Finding Entry
         <label>Description of the Finding:</label>
         <input type="text" class="form-control" placeholder="Description" name="Description_of_the_Finding" required="1">
       </div>
+
       </br>
 
       <div class="form-group">
@@ -153,6 +164,7 @@ New Finding Entry
  </div>
  </div>
 </div>
+
 
 </body>
 </html>

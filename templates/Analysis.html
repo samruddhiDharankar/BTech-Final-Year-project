@@ -1,7 +1,8 @@
+</html>
 <!DOCTYPE html>
 <html>
 <head>
-<title>Display Table</title>
+<title>Analysis</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,41 +18,18 @@
 div {
   margin-right: 100px;
   margin-left: 100px;
-  margin-bottom: 250px;
 }
 
 table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
-  width: 100%; 
+  width: 50%;
 }
 
-
-.button {
-  border: none;
-  color: white;
-  padding: 15px 32px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 200px;
-  margin: 4px 2px;
-  cursor: pointer;
-}
-
-.button1 {background-color: 000003;}
-
-td{
-  border: 1.5px solid #dddddd;
+td, th {
+  border: 1px solid #dddddd;
   text-align: left;
-  margin: 4px 2px;
-  padding: 10px;
-}
-
-th {
-  border: 1.5px solid #dddddd;
-  text-align: left;
-  margin: 4px 2px;
+  margin: 10px 10px;
   padding: 10px;
 }
 
@@ -64,12 +42,11 @@ tr:nth-child(even) {
 <body>
 
 <nav class="navbar navbar-inverse navbar-fixed-top">
-
     <ul class="nav navbar-nav">
-      <li ><a href="/Overview">Overview</a></li>
+      <li><a href="/Overview">Overview</a></li>
       <li><a href="/fetch">Evidence Repo</a></li>
-      <li><a href="/Analysis">Analysis</a></li>
-      <li class="active"><a href="/display_table">Memory</a></li>
+      <li class="active"><a href="/Analysis">Analysis</a></li>
+      <li><a href="/display_table">Memory</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
     <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
@@ -86,20 +63,47 @@ tr:nth-child(even) {
 </br>
 </br>
 </br></br></br></br>
-</br></br></br></br>
 
 <div>
 
+<form action="{{url_for('filter')}}" method="GET">
+
+  <select name="myselect" id="myselect" onchange="this.form.submit()" method="GET" action="/filter">
+    <option value= "All" SELECTED>VMID</option>
+    {% for row in value2 %}
+    <option value= "{{row[0]}}">{{row[0]}}</option>
+    {% endfor %}
+  </select>
+
+  <select name= IPV4 method="GET" action="/">
+    <option value= "All" SELECTED>IPV4</option>
+    {% for row in value3 %}
+    <option value= "{{row[0]}}">{{row[0]}}</option>
+    {% endfor %}
+  </select>
+
+  <input type="submit" value="Submit">
+  <!-- <div class="form-group">
+        <button class="btn btn-primary" type="submit">Submit</button>
+  </div> -->
+
+</form>
+</div>
+
+</br>
+</br>
+
+<div>
 <table>
 
-  <tr> 
-       <th>ID</th> 
-       <th>POLL</th> 
-       <th>IPV4</th>
-       <th>MAC</th>
-   </tr>
-  
-  {% for row in value %}  
+  <tr>
+    <th>VMID</th>
+    <th>Last Poll</th>
+    <th>IPV4</th>
+    <th>MAC</th>
+  </tr>
+
+  {% for row in value1 %}  
            <tr> 
                <td>{{row[0]}}</td> 
                <td>{{row[1]}}</td> 
@@ -107,11 +111,12 @@ tr:nth-child(even) {
                <td>{{row[3]}}</td> 
                
            </tr> 
-  {% endfor %}
+  {% endfor %}  
 
 </table>
-
 </div>
+
+
 
 </body>
 </html>
