@@ -68,14 +68,14 @@ tr:nth-child(even) {
 
 <form action="{{url_for('filter')}}" method="GET">
 
-  <select name="myselect" id="myselect" onchange="this.form.submit()" method="GET" action="/filter">
+  <select name="vmid" id="vmid" method="GET" action="/filter">
     <option value= "All" SELECTED>VMID</option>
     {% for row in value2 %}
     <option value= "{{row[0]}}">{{row[0]}}</option>
     {% endfor %}
   </select>
 
-  <select name= IPV4 method="GET" action="/">
+  <select name= "IPV4" id="IPV4" method="GET" action="/">
     <option value= "All" SELECTED>IPV4</option>
     {% for row in value3 %}
     <option value= "{{row[0]}}">{{row[0]}}</option>
