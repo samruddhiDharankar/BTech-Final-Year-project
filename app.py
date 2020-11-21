@@ -18,11 +18,11 @@ app.config.from_object(__name__)
 Session(app)
 
 #SqlAlchemy Database Configuration With Mysql
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/databast_be'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:Shavak@@123@localhost/database_be'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #for regular mysql
-conn = MySQLdb.connect(host="localhost",user="root",password="1234",db="databast_be")
+conn = MySQLdb.connect(host="localhost",user="root",password="Shavak@@123",db="database_be")
 cursor = conn.cursor()
 
 
@@ -257,13 +257,14 @@ def Analysis():
 @app.route('/filter', methods = ['POST','GET'])
 def filter():
 	if request.method == 'GET':
-		VMID = request.form.get("VMID")
-		IPV4 = request.form.get("IPV4")
+		VMID = request.args.get("vmid")
+		IPV4 = request.args.get("IPV4")
 
 		#cursor.execute("SELECT * FROM vmdb WHERE VMID= %S AND IPV4 = %S, (VMID,IPV4)")
 		#cursor.execute("SELECT * FROM vmdb WHERE VMID= %S, (VMID)")
-
-		cursor.execute("SELECT * FROM vmdb WHERE VMID=%S",str(VMID))
+		strqry="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
+		print(strqry)
+		cursor.execute(strqry)
 		query9 = cursor.fetchall()
 		return render_template("Analysis.html", value1 = query9, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
 
