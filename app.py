@@ -24,6 +24,9 @@ cursor = conn.cursor()
 
 
 
+
+
+
 @app.route('/', methods=['GET'])
 def index():
 	return redirect(url_for('login'))
@@ -55,7 +58,7 @@ def login():
 			cursor.execute(query1,val1)
 			conn.commit()
 
-			session['user_name'] = attempted_username					#session saved for USER_NAME	
+			session['user_name'] = attempted_username						
 
 			return redirect(url_for('caseManage'))
 
