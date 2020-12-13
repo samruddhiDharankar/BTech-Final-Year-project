@@ -4,8 +4,11 @@ from flask_mysqldb import MySQL,MySQLdb
 from MySQLdb import escape_string as thwart
 from datetime import datetime
 from flask_sqlalchemy import SQLAlchemy
-
 from flask_session import Session
+import sqlite3
+import time
+import random
+import subprocess
 
   
 app = Flask(__name__)
@@ -20,6 +23,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #for regular mysql
 conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="database_be") 
+
+#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/databast_be'
+#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+#for regular mysql
+#conn = MySQLdb.connect(host="localhost",user="root",password="1234",db="databast_be")
 cursor = conn.cursor()
 
 
@@ -153,8 +162,11 @@ db.create_all()
 @app.route('/Overview', methods = ['POST','GET'])
 def Overview():
 	case_id = session.get('case_id')
-	print("caseIDDDD" + case_id)
+
+	#cursor.execute("SELECT * FROM Finding WHERE caseId_fk= %S, (case_id)")
+	#all_data = cursor.fetchall()
 	all_data = Finding.query.filter_by(caseID_fk=case_id).all()
+	
 	return render_template("Overview.html", Finding = all_data)
 
 #insert data to mysql database via html forms
@@ -176,18 +188,111 @@ def insert():
 		#db.session.add(my_data)
 		#db.session.commit()
 		return redirect(url_for('Overview'))
-	
-#display four values from sql table file
-@app.route('/')
-def display_tableinfo(): 
-    cursor.execute("select * from vmdb") 
-    data = cursor.fetchall() #data from database 
-    return render_template("display_table.html", value=data) 
+
+
+@app.route('/fetch', methods=['GET'])
+def index1():
+	return redirect(url_for('fetch'))
+
+
+@app.route('/fetch', methods=['GET','POST'])
+def fetch():
+
+	#print(request.method)
+	cursor = conn.cursor()
+
+	if(request.method == "GET"or "POST"):
+		
+		#now = datetime.now()
+		query1 = "select distinct vmid from mems";
+		cursor.execute(query1)
+		result = cursor.fetchall()
+		myresult=sorted(result)
+		myresult = str(myresult)
+		myresult= re.sub('[(,)]','',myresult)
+		myresult= myresult[1:-1:2]
+		
+	#	for row in myresult:
+			
+	#		print(row)
+
+	return render_template("fetch.html",myresult=myresult)
+
+def index2():
+	return redirect(url_for('fetch'))
+
+
+
+@app.route('/fetch', methods=['GET','POST'])
+def afterfetch():
+	fetch()
+	print(request.method)
+	cursor = conn.cursor()
+
+	if(request.method == "GET"or "POST"):
+		vr = request.form.get("vmid")
+		print(request.method)
+		print(vr)
+
+		cursor.execute("SELECT path FROM mems WHERE VMID= %s", (vr))
+
+		my = cursor.fetchall()
+		res=my[13:]
+		for h in my:
+			subprocess.run(["scp", res, "prasad@192.168.43.198:my"])
+	return render_template("fetch.html",res=res)
 
 
 @app.route('/eviRepo', methods = ['POST','GET'])
 def eviRepo():
-	return render_template("eviRepo.html")	
+	return render_template("eviRepo.html")
+
+
+cursor.execute("SELECT DISTINCT VMID FROM vmdb ORDER BY VMID")
+vmid_dropdown_options = cursor.fetchall()
+
+cursor.execute("SELECT DISTINCT IPV4 FROM vmdb")
+ipv4_dropdown_options = cursor.fetchall()
+
+
+@app.route('/Analysis', methods = ['POST','GET'])
+def Analysis():
+	cursor.execute("select * from vmdb")
+	query = cursor.fetchall()
+
+	return render_template("Analysis.html", value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+
+
+@app.route('/filter', methods = ['GET', 'POST'])
+def filter():
+	if request.method == 'GET' or 'POST':
+		VMID = request.args.get("VMID")
+		IPV4 = request.args.get("IPV4")
+
+		#VMID = request.form['VMID']
+		#IPV4 = request.form['IPV4']
+		
+
+		#cursor.execute("SELECT * FROM vmdb WHERE VMID= %S AND IPV4 = %S, (VMID,IPV4)")
+		#cursor.execute("SELECT * FROM vmdb WHERE VMID= %S, (VMID)")
+
+		#cursor.execute("SELECT * FROM vmdb WHERE VMID=%S",str(VMID))
+		#VMID = 18
+		print(VMID)
+		print(IPV4)
+		strqry="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
+		print(strqry)
+		cursor.execute(strqry)
+		query9 = cursor.fetchall()
+		return render_template("Analysis.html", value1 = query9, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+
+
+@app.route('/display_table', methods = ['POST','GET'])
+def display_tableinfo(): 
+	cursor.execute("select * from vmdb") 
+	data = cursor.fetchall() #data from database 
+	return render_template("display_table.html", value=data)
+
 	
 if __name__ == "__main__":
 	app.debug = True

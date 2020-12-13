@@ -1,0 +1,123 @@
+</html>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Analysis</title>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <link rel= "stylesheet" href= "static/css/main.css">
+  <link rel= "stylesheet" href= "static/css/overview.css">
+          
+
+<style>
+
+div {
+  margin-right: 100px;
+  margin-left: 100px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 50%;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  margin: 10px 10px;
+  padding: 10px;
+}
+
+/*tr:nth-child(even) {
+  background-color: 000003;
+}
+*/
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <ul class="nav navbar-nav">
+      <li><a href="/Overview">Overview</a></li>
+      <li><a href="/fetch">Evidence Repo</a></li>
+      <li class="active"><a href="/Analysis">Analysis</a></li>
+      <li><a href="/display_table">Memory</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Switch User</a></li>
+        </ul>
+      </li>
+      <li><a href="/login"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span>Log Out</button></a></li>
+    </ul>
+  </div>
+</nav>
+
+</br>
+</br>
+</br></br></br></br>
+
+<div>
+
+<form action="{{url_for('filter')}}" class="form" method = "GET", "POST">
+
+  <select name="VMID" id="VMID" method="GET","POST" action="/filter">
+    <option value= "All" SELECTED>VMID</option>
+    {% for row in value2 %}
+    <option value= "{{row[0]}}">{{row[0]}}</option>
+    {% endfor %}
+  </select>
+  <!--  -->
+
+  <select name = IPV4 id="IPV4" method="GET","POST" action="/filter">
+    <option value= "All" SELECTED>IPV4</option>
+    {% for row1 in value3 %}
+    <option value= "{{row1[0]}}">{{row1[0]}}</option>
+    {% endfor %}
+  </select>
+
+  <input type="submit" value=Submit>
+  <!-- <div class="form-group">
+        <button class="btn btn-primary" type="submit">Submit</button>
+  </div> -->
+
+</form>
+</div>
+
+</br>
+</br>
+
+<div>
+<table>
+
+  <tr>
+    <th>VMID</th>
+    <th>Last Poll</th>
+    <th>IPV4</th>
+    <th>MAC</th>
+  </tr>
+
+  {% for row in value1 %}  
+           <tr> 
+               <td>{{row[0]}}</td> 
+               <td>{{row[1]}}</td> 
+               <td>{{row[2]}}</td> 
+               <td>{{row[3]}}</td> 
+               
+           </tr> 
+  {% endfor %}  
+
+</table>
+</div>
+
+
+
+</body>
+</html>
