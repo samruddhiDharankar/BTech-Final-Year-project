@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Display Table</Table></title>
+<title>Display Table</title>
 
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -10,48 +10,96 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
   <link rel= "stylesheet" href= "static/css/main.css">
   <link rel= "stylesheet" href= "static/css/overview.css">
-<table> 
-<style>table {
-    font-family: arial, sans-serif;
-    border-collapse: collapse;
-    width: 100%;
-  }
-  
-  .button {
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 200px;
-    margin: 4px 2px;
-    cursor: pointer;
-  }
-  
-  .button1 {background-color: 000003;}
-  
-  td, th {
-    border: 1.5px solid #dddddd;
-    text-align: left;
-    margin: 4px 2px;
-    padding: 10px;
-  }
-  
-  tr:nth-child(even) {
-    background-color: 000003;
-  }
-  </style>
-   <thead> 
-   <tr> 
+          
+
+<style>
+
+div {
+  margin-right: 100px;
+  margin-left: 100px;
+  margin-bottom: 250px;
+}
+
+table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 100%; 
+}
+
+
+.button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 200px;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+.button1 {background-color: 000003;}
+
+td{
+  border: 1.5px solid #dddddd;
+  text-align: left;
+  margin: 4px 2px;
+  padding: 10px;
+}
+
+th {
+  border: 1.5px solid #dddddd;
+  text-align: left;
+  margin: 4px 2px;
+  padding: 10px;
+}
+
+tr:nth-child(even) {
+  background-color: 000003;
+}
+
+</style>
+</head>
+<body>
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+
+    <ul class="nav navbar-nav">
+      <li ><a href="/Overview">Overview</a></li>
+      <li><a href="/fetch">Evidence Repo</a></li>
+      <li><a href="/Analysis">Analysis</a></li>
+      <li class="active"><a href="/display_table">Memory</a></li>
+    </ul>
+    <ul class="nav navbar-nav navbar-right">
+    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
+        <ul class="dropdown-menu">
+          <li><a href="#">Settings</a></li>
+          <li><a href="#">Switch User</a></li>
+        </ul>
+      </li>
+      <li><a href="/login"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span>Log Out</button></a></li>
+    </ul>
+  </div>
+</nav>
+
+</br>
+</br>
+</br></br></br></br>
+</br></br></br></br>
+
+<div>
+
+<table>
+
+  <tr> 
        <th>ID</th> 
        <th>POLL</th> 
        <th>IPV4</th>
        <th>MAC</th>
-   </tr> 
-   </thead> 
-   <tbody> 
-       {% for row in value %}  
+   </tr>
+  
+  {% for row in value %}  
            <tr> 
                <td>{{row[0]}}</td> 
                <td>{{row[1]}}</td> 
@@ -59,6 +107,11 @@
                <td>{{row[3]}}</td> 
                
            </tr> 
-       {% endfor %} 
-   </tbody> 
-</table> 
+  {% endfor %}
+
+</table>
+
+</div>
+
+</body>
+</html>
