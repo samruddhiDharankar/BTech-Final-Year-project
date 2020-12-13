@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.5deb2
+-- version 5.0.3
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3306
--- Generation Time: Nov 06, 2020 at 10:12 AM
--- Server version: 8.0.21-0ubuntu0.20.04.4
--- PHP Version: 7.4.3
+-- Host: 127.0.0.1
+-- Generation Time: Dec 13, 2020 at 12:33 PM
+-- Server version: 10.4.14-MariaDB
+-- PHP Version: 7.2.34
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -16,10 +15,10 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `databast_be`
+-- Database: `database_be`
 --
 
 -- --------------------------------------------------------
@@ -29,12 +28,11 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `case_table` (
-  `caseID` int NOT NULL,
+  `caseID` int(11) NOT NULL,
   `caseName` varchar(255) NOT NULL,
-  `description` text,
-  `casePassword` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
-
+  `description` text DEFAULT NULL,
+  `casePassword` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `case_table`
@@ -55,9 +53,9 @@ INSERT INTO `case_table` (`caseID`, `caseName`, `description`, `casePassword`) V
 --
 
 CREATE TABLE `case_user_mapping` (
-  `caseID_fk` int NOT NULL,
-  `userID_fk` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+  `caseID_fk` int(11) NOT NULL,
+  `userID_fk` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `case_user_mapping`
@@ -74,15 +72,30 @@ INSERT INTO `case_user_mapping` (`caseID_fk`, `userID_fk`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `finding`
+--
+
+CREATE TABLE `finding` (
+  `findingID` int(11) NOT NULL,
+  `user_name` text DEFAULT NULL,
+  `caseID_fk` int(11) DEFAULT NULL,
+  `Description` text DEFAULT NULL,
+  `Evidence_Details` text DEFAULT NULL,
+  `Datetime_of_the_Finding` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `session`
 --
 
 CREATE TABLE `session` (
-  `sessionID` int NOT NULL,
-  `userID_fk` int NOT NULL,
+  `sessionID` int(11) NOT NULL,
+  `userID_fk` int(11) NOT NULL,
   `loginTime` datetime NOT NULL,
   `logoutTime` datetime DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `session`
@@ -106,7 +119,8 @@ INSERT INTO `session` (`sessionID`, `userID_fk`, `loginTime`, `logoutTime`) VALU
 (24, 4, '2020-10-14 16:24:13', NULL),
 (25, 4, '2020-10-19 12:59:12', NULL),
 (26, 4, '2020-10-19 13:00:28', NULL),
-(27, 4, '2020-11-06 10:10:51', NULL);
+(27, 4, '2020-11-06 10:10:51', NULL),
+(28, 4, '2020-12-13 17:00:07', NULL);
 
 -- --------------------------------------------------------
 
@@ -115,10 +129,10 @@ INSERT INTO `session` (`sessionID`, `userID_fk`, `loginTime`, `logoutTime`) VALU
 --
 
 CREATE TABLE `user` (
-  `userID` int NOT NULL,
+  `userID` int(11) NOT NULL,
   `userName` varchar(255) NOT NULL,
   `password` varchar(255) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `user`
@@ -145,6 +159,12 @@ ALTER TABLE `case_user_mapping`
   ADD KEY `userID_fk` (`userID_fk`);
 
 --
+-- Indexes for table `finding`
+--
+ALTER TABLE `finding`
+  ADD PRIMARY KEY (`findingID`);
+
+--
 -- Indexes for table `session`
 --
 ALTER TABLE `session`
@@ -162,16 +182,22 @@ ALTER TABLE `user`
 --
 
 --
+-- AUTO_INCREMENT for table `finding`
+--
+ALTER TABLE `finding`
+  MODIFY `findingID` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `session`
 --
 ALTER TABLE `session`
-  MODIFY `sessionID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `sessionID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `userID` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `userID` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
@@ -181,14 +207,14 @@ ALTER TABLE `user`
 -- Constraints for table `case_user_mapping`
 --
 ALTER TABLE `case_user_mapping`
-  ADD CONSTRAINT `case_user_mapping_ibfk_1` FOREIGN KEY (`caseID_fk`) REFERENCES `case_table` (`caseID`) ON DELETE RESTRICT ON UPDATE RESTRICT,
-  ADD CONSTRAINT `case_user_mapping_ibfk_2` FOREIGN KEY (`userID_fk`) REFERENCES `user` (`userID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `case_user_mapping_ibfk_1` FOREIGN KEY (`caseID_fk`) REFERENCES `case_table` (`caseID`),
+  ADD CONSTRAINT `case_user_mapping_ibfk_2` FOREIGN KEY (`userID_fk`) REFERENCES `user` (`userID`);
 
 --
 -- Constraints for table `session`
 --
 ALTER TABLE `session`
-  ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`userID_fk`) REFERENCES `user` (`userID`) ON DELETE RESTRICT ON UPDATE RESTRICT;
+  ADD CONSTRAINT `session_ibfk_1` FOREIGN KEY (`userID_fk`) REFERENCES `user` (`userID`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

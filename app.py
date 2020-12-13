@@ -15,11 +15,11 @@ app.config.from_object(__name__)
 Session(app)
 
 #SqlAlchemy Database Configuration With Mysql
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/databast_be'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/database_be'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 #for regular mysql
-conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="databast_be") 
+conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="database_be") 
 cursor = conn.cursor()
 
 
