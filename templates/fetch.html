@@ -1,60 +1,76 @@
 <!DOCTYPE html>
+
 <html>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-		<!-- <link rel= "stylesheet" href= "{{ url_for('static',filename='css/main.css') }}"> -->
-		<link rel= "stylesheet" href= "static/css/fetch.css">
-		<link rel= "stylesheet" href= "static/css/main.css">
-      
-		<title></title>
-		
-	</head>    
+<head>
+	<title>Fetch</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="static/css/main.css">
+
+	<style>
+		div {
+			margin-right: 100px;
+			margin-left: 100px;
+		}
+
+		table {
+			font-family: arial, sans-serif;
+			border-collapse: collapse;
+			width: 50%;
+		}
+
+		td,
+		th {
+			border: 1px solid #dddddd;
+			text-align: left;
+			margin: 10px 10px;
+			padding: 10px;
+		}
+
+		/*tr:nth-child(even) {
+  background-color: 000003;
+}
+*/
+	</style>
+</head>
 	
-        <body>
-
-			<nav class="navbar navbar-inverse navbar-fixed-top">
-
-			    <ul class="nav navbar-nav">
-			      <li class="active"><a href="/Overview">Overview</a></li>
-			      <li><a href="/fetch">Evidence Repo</a></li>
-			      <li><a href="/Analysis">Analysis</a></li>
-			      <li><a href="/display_table">Memory</a></li>
-			    </ul>
-			    <ul class="nav navbar-nav navbar-right">
-			    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
-			        <ul class="dropdown-menu">
-			          <li><a href="#">Settings</a></li>
-			          <li><a href="#">Switch User</a></li>
-			        </ul>
-			      </li>
-			      <li><a href="/login"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span>Log Out</button></a></li>
-			    </ul>
-			  </div>
+   <body>
+		<nav class="navbar navbar-inverse navbar-fixed-top">
+				<ul class="nav navbar-nav">
+					<li><a href="/Overview">Overview</a></li>
+					<li class="active"><a href="/fetch">Evidence Repo</a></li>
+					<li><a href="/Analysis">Analysis</a></li>
+					<li><a href="/display_table">Memory</a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span
+								class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="#">Settings</a></li>
+							<li><a href="#">Switch User</a></li>
+						</ul>
+					</li>
+					<li><a href="/login"><button type="button" class="btn btn-default btn-sm"><span
+									class="glyphicon glyphicon-log-out"></span>Log Out</button></a></li>
+				</ul>
 			</nav>
+			
+			</br></br></br></br></br></br>
 
-			</br>
-			</br>
-			</br></br></br></br>
-
-
-			<div class="container" id="box">
-				<div class="row">
-					<div class="col d-flex justify-content-center">
-						<div class="card">
-							<div class="card-body">
-								<form action="{{ url_for('fetch') }}" class="form" method="POST","GET">
-									
-									Select VMID  <SELECT name="vmid">
-									{% for i in myresult %}
-								          <option value= '{{ x }}'>{{i}}</option>
-									{% endfor %}
-									</SELECT><br>
-								 <input type="submit" value={{request.form.VMID}} SUBMIT>
-								</form>
-							</div>
-						</div>
-					</div>
-				</div>
+			<div>
+				<form action="{{url_for('fetch1')}}" class="form" method="GET" , "POST">
+					<select name="VMID" id="VMID" method="GET" ,"POST" action="/fetch1">
+						<option value="All" SELECTED>VMID</option>
+							{% for row in myresult %}
+								<option value="{{row[0]}}">{{row[0]}}</option>
+							{% endfor %}
+					</select>
+					<input type="submit" value=Submit>
+				</form>
 			</div>
 
         

@@ -182,62 +182,102 @@ def insert():
 		return redirect(url_for('Overview'))
 
 
-@app.route('/fetch', methods=['GET'])
-def index1():
-	return redirect(url_for('fetch'))
+# @app.route('/fetch', methods=['GET'])
+# def index1():
+# 	return redirect(url_for('fetch'))
 
 
-@app.route('/fetch', methods=['GET','POST'])
-def fetch():
+# @app.route('/fetch', methods=['GET','POST'])
+# def fetch():
 
-	#print(request.method)
-	cursor = conn.cursor()
+# 	#print(request.method)
+# 	cursor = conn.cursor()
 
-	if(request.method == "GET"or "POST"):
+# 	if(request.method == "GET"or "POST"):
 		
-		#now = datetime.now()
-		query1 = "select distinct vmid from mems";
-		cursor.execute(query1)
-		result = cursor.fetchall()
-		myresult=sorted(result)
-		myresult = str(myresult)
-		myresult= re.sub('[(,)]','',myresult)
-		myresult= myresult[1:-1:2]
+# 		#now = datetime.now()
+# 		query1 = "select distinct vmid from mems";
+# 		cursor.execute(query1)
+# 		result = cursor.fetchall()
+# 		myresult=sorted(result)
+# 		myresult = str(myresult)
+# 		myresult= re.sub('[(,)]','',myresult)
+# 		myresult= myresult[1:-1:2]
 		
-	#	for row in myresult:
+# 	#	for row in myresult:
 			
-	#		print(row)
+# 	#		print(row)
 
-	return render_template("fetch.html",myresult=myresult)
+# 	return render_template("fetch.html",myresult=myresult)
 
-def index2():
-	return redirect(url_for('fetch'))
-
-
-
-@app.route('/fetch', methods=['GET','POST'])
-def afterfetch():
-	fetch()
-	print(request.method)
-	cursor = conn.cursor()
-
-	if(request.method == "GET"or "POST"):
-		vr = request.form.get("vmid")
-		print(request.method)
-		print(vr)
-
-		cursor.execute("SELECT path FROM mems WHERE VMID= %s", (vr))
-
-		my = cursor.fetchall()
-		res=my[13:]
-		for h in my:
-			subprocess.run(["scp", res, "prasad@192.168.43.198:my"])
-	return render_template("fetch.html",res=res)
+# def index2():
+# 	return redirect(url_for('fetch'))
 
 
-@app.route('/eviRepo', methods = ['POST','GET'])
-def eviRepo():
-	return render_template("eviRepo.html")
+
+# @app.route('/fetch', methods=['GET','POST'])
+# def afterfetch():
+# 	fetch()
+# 	print(request.method)
+# 	cursor = conn.cursor()
+
+# 	if(request.method == "GET"or "POST"):
+# 		vr = request.form.get("vmid")
+# 		print(request.method)
+# 		print(vr)
+
+# 		cursor.execute("SELECT path FROM mems WHERE VMID= %s", (vr))
+
+# 		my = cursor.fetchall()
+# 		res=my[13:]
+# 		for h in my:
+# 			subprocess.run(["scp", res, "prasad@192.168.43.198:my"])
+# 	return render_template("fetch.html",res=res)
+
+
+cursor.execute("SELECT DISTINCT VMID FROM memory ORDER BY VMID")
+vmid_dropdown_options1 = cursor.fetchall()
+
+
+@app.route('/fetch', methods = ['POST','GET'])
+def fetch():
+	return render_template("fetch.html",myresult = vmid_dropdown_options1)
+
+
+@app.route('/fetch1', methods = ['GET', 'POST'])
+def fetch1():
+	if request.method == 'GET' or 'POST':
+		VMID = request.args.get("VMID")
+		print(VMID)
+		strqr="SELECT path FROM memory WHERE VMID='%s'"% VMID
+		
+		cursor.execute(strqr)
+		qq = cursor.fetchall()
+		
+		for h in qq:
+			h=str(h)
+			h=h[2:-3]
+			#print(h)
+			res=h[12:]
+			res=(str(res))
+			cc=("E:\memory\\")
+			cc=cc+str(res)
+			print(cc)
+			#subprocess.run(["scp",res, cc])
+			file = open(cc, 'w+')
+			#p = subprocess.Popen(["scp", res,cc])
+			#sts = p.wait()
+		return render_template("fetch.html",myresult = vmid_dropdown_options1,value1=qq)
+			# strqry1="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
+			# print(strqry1)
+			# cursor.execute(strqry1)
+			# query98 = cursor.fetchall()
+			# return render_template("Analysis.html", value1 = query98, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+
+
+# @app.route('/eviRepo', methods = ['POST','GET'])
+# def eviRepo():
+# 	return render_template("eviRepo.html")
 
 
 cursor.execute("SELECT DISTINCT VMID FROM vmdb ORDER BY VMID")
