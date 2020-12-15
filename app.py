@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, url_for, session
+from flask import Flask, render_template, request, redirect, flash, url_for, session, json, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL,MySQLdb
 from MySQLdb import escape_string as thwart
@@ -9,7 +9,8 @@ import sqlite3
 import time
 import random
 import subprocess
-
+import json
+import html
   
 app = Flask(__name__)
 
@@ -245,13 +246,19 @@ vmid_dropdown_options = cursor.fetchall()
 cursor.execute("SELECT DISTINCT IPV4 FROM vmdb")
 ipv4_dropdown_options = cursor.fetchall()
 
+with open('./cpu.json', 'r') as myfile:
+    json1 = myfile.read()
+
+print(json1) #just to confirm
 
 @app.route('/Analysis', methods = ['POST','GET'])
 def Analysis():
 	cursor.execute("select * from vmdb")
 	query = cursor.fetchall()
-
-	return render_template("Analysis.html", value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+	# data = map(json1,query)
+	# print(data)
+	# return jsonify({json1 : json1})
+	return render_template("Analysis.html",data = json.dumps(json1), value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
 
 
 @app.route('/filter', methods = ['GET', 'POST'])
