@@ -11,6 +11,9 @@ import random
 import subprocess
 import json
 import html
+# from flask_cors import CORS, cross_origin
+# cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
   
 app = Flask(__name__)
 
@@ -289,7 +292,13 @@ ipv4_dropdown_options = cursor.fetchall()
 with open('./cpu.json', 'r') as myfile:
     json1 = myfile.read()
 
-print(json1) #just to confirm
+#print(json1) #just to confirm
+@app.route("/getjson", methods = ['POST','GET'])
+def json_():
+   data = json1
+   return data
+
+# {"this":"is", "just":"a test"}
 
 @app.route('/Analysis', methods = ['POST','GET'])
 def Analysis():
@@ -298,8 +307,9 @@ def Analysis():
 	# data = map(json1,query)
 	# print(data)
 	# return jsonify({json1 : json1})
-	return render_template("Analysis.html",data = json.dumps(json1), value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+	return render_template("Analysis.html",data = json1, value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
 
+# json.dumps(json1)
 
 @app.route('/filter', methods = ['GET', 'POST'])
 def filter():
@@ -322,7 +332,7 @@ def filter():
 		print(strqry)
 		cursor.execute(strqry)
 		query9 = cursor.fetchall()
-		return render_template("Analysis.html", value1 = query9, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+		return render_template("Analysis.html", data = json1, value1 = query9, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
 
 
 @app.route('/display_table', methods = ['POST','GET'])
