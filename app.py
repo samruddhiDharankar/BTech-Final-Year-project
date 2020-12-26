@@ -292,6 +292,11 @@ def display_tableinfo():
 	cursor.execute("select * from vmdb") 
 	data = cursor.fetchall() #data from database 
 	return render_template("display_table.html", value=data)
+	def index():
+    	return render_template('index.html')
+	@app.route('/vmd_timestamp')
+	def vmd_timestamp():
+	return render_template('index.html')
 
 	
 if __name__ == "__main__":
