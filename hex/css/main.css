@@ -1,0 +1,341 @@
+.navbar-brand {	
+	max-width: 100%;
+	height: 10px;
+}
+.navbar {
+	background-color: white;
+	border-bottom: 1px solid #f5f5f5;
+}
+
+
+a.navbar-brand img {
+	position: relative;
+	top: -5px;	
+}
+
+
+
+.navbar-nav a {
+    background-color: #f0f0f0;
+    color: white;
+}
+
+.navbar-nav > li > a:hover {
+    background-color: #FD339B;
+    color: white;
+}
+
+.navbar-nav > .active > a, .navbar-nav > .active > a:hover, .navbar-nav > .active > a:focus {
+    background-color: #FD339B;
+    color: white;
+    font-weight: bold;
+}
+
+.navbar-nav > li > a {
+    border-radius: 0;
+    margin-top: 14px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+
+
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:hover, .nav-pills > li.active > a:focus {
+    background-color: #3399CC;
+    color: #FFFFFF;
+}
+
+
+.nav-pills > li a {
+	height: 40px;
+}
+
+.nav-pills > li span {
+	display: none;	
+}
+
+.nav-pills > li.active span.glyphicon {
+	display: inline;
+	padding-left: 10px;
+	cursor: pointer;
+	opacity: 0.8;
+	color: #eee;
+	position: relative;
+	top: -19px;
+}
+ 
+.nav-pills > li.active span.glyphicon:hover {
+	opacity: 1;
+	color: white;
+}
+
+.nav-pills > li span.fname {
+	width: 100%;
+	overflow: hidden;
+	display: block;
+	float: left;
+}
+.nav-pills > li span.fname b.percent {
+	display: none;
+}
+
+input[type="file"] {
+    width: 100%;
+}
+
+.hexselection {
+
+}
+
+.hexselection input {
+  float: right;
+}
+
+.hexselection table {
+	width: 100%;
+}
+table#hexvalues {
+	width: 100%;
+}
+table#hexvalues input[type="text"] {
+    font-size: 9pt;
+}
+
+.hexselection table input {
+	width: 100%;
+}
+table#hexvalues input {
+	width: 100%;
+}
+
+
+table#hexvalues .l {
+	width: 20%;
+	padding-right: 1px;
+}
+
+
+
+.hex {
+    font-family: monospace;
+    font-size: 10pt;
+    width: 680px;
+    height: 515px;
+}
+.hexdump {
+    float: left;
+    line-height: 20px;
+    width: 400px;
+}
+.hexdump b.selected {
+    background-color: #FE57A1;
+    color: white;
+}
+
+.hexdump u {
+    color: red;
+    text-decoration: none;
+}
+.hexdump b.selected u {
+    color: black;
+}
+
+.hextext u {
+	color: red;
+	text-decoration: none;
+}
+.hextext b.selected u {
+	color: black;
+}
+
+.hexdump b {
+    font-weight: normal;
+}
+.hextext {
+    float: left;
+    line-height: 20px;
+    width: 140px;
+}
+.hextext b.selected {
+    background-color: #FE57A1;
+    color: white;
+}
+.hextext b {
+    font-weight: normal;
+}
+.hexoffset {
+    color: blue;
+    float: left;
+    line-height: 20px;
+    padding-right: 10px;
+    text-align: right;
+    width: 100px;
+}
+.hexoffset input {
+    color: blue;
+    font-family: monospace;
+    text-align: center;
+    width: 98px;
+}
+.hexscale {
+    color: blue;
+    line-height: 20px;
+    padding-left: 100px;
+}
+.hexscale span {
+    display: none;
+    float: right;
+}
+.hexscroll {
+    float: right;
+    height: 480px;
+    overflow-y: scroll;
+    width: 20px;
+}
+.hexscroll div {
+    height: 10000px;
+}
+.hexselection input[type="text"] {
+    font-size: 9pt;
+    width: 110px;
+}
+
+
+
+#hextable td.data textarea {
+	width: 99%;
+	font-family: monospace;
+}
+
+#hextable th.data {
+	width: 99%;
+}
+
+
+#hextable td.start {
+	text-align: right;
+}
+#hextable td.end {
+	text-align: right;
+}
+#hextable td.size {
+	text-align: right;
+}
+
+
+
+table#hexvalues select {
+	width: 100%;
+	font-weight: bold;
+	
+}
+
+
+#checksumtable th.file {
+	width: 1%;
+}
+#checksumtable th.algo {
+	width: 1%;
+}
+#checksumtable th.hash {
+	width: 98%;
+}
+
+
+.upload {
+	position: relative;
+	height: 35px;
+}
+.upload input[type="file"] {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+    cursor: pointer;
+    height: 30px;
+    padding-top: 30px;
+    width: 100%;
+    left: 0px; 
+    top: 0px;
+    z-index: 2;
+    position: absolute;
+    opacity: 0.01;
+}
+.upload input.btn.open {
+    left: 2px;
+    position: absolute;
+    top: 2px;
+    z-index: 1;
+    background-color: #3399CC;
+}
+.upload input.btn.new {
+    left: 100px;
+    position: absolute;
+    top: 2px;
+    z-index: 3;
+    background-color: #3399CC;
+}
+
+
+.form-horizontal .control-label {
+    float: left;
+    padding-top: 5px;
+    text-align: right;
+    width: 90px;
+    clear: left;
+    position: relative;
+    top: -4px;
+}
+
+.form-horizontal .control-group {
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.form-horizontal .controls {
+    margin-left: 100px;
+}
+.form-horizontal .controls input[type="text"] {
+    width: 50%;
+}
+
+
+#selstructure {
+	width: 30%;
+}
+
+#selstructure option {
+	padding-left: 10px;
+}
+#selstructure option.category {
+	font-weight: bold;
+	padding-left: 0px;
+}
+
+#structuretable td.caption {
+	background-color: #f0f0f0;
+	border-top: 20px solid white;
+	display: inline-block;
+	width: 222px;
+}
+
+#structuretable td.caption .glyphicon {
+	font-size: 0.8em;
+	color: #444;
+}
+
+
+.hex span.scroll {
+ float: right;
+ margin-right: 2px;
+ opacity: 0.7;
+ cursor: pointer;
+}
+.hex span.scroll.glyphicon-arrow-down {
+ float: right;
+ margin-right: 1px;
+ margin-top: 4px;
+ clear: right;
+}
+.hex span.scroll:hover {
+ opacity: 0.95;
+}

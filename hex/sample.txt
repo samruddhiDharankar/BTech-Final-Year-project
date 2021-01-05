@@ -1,0 +1,13 @@
+@web_page{Gartner2019,
+   author = {Gartner},
+   journal = {STAMFORD, Conn. April 2, 2019},
+   title = {Gartner Forecasts Worldwide Public Cloud Revenue to Grow 17.5 Percent in 2019},
+   url = {https://www.gartner.com/en/newsroom/press-releases/2019-04-02-gartner-forecasts-worldwide-public-cloud-revenue-to-g},
+   year = {2019},
+}
+@report{,
+   author = {Trustwave Holdings},
+   title = {2020 Trustwave Global Security  Report},
+   url = {https://www.trustwave.com/en-us/resources/library/documents/2020-trustwave-global-security-report/},
+   year = {2020},
+}
