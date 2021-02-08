@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `databast_be` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+USE `databast_be`;
 -- MySQL dump 10.13  Distrib 8.0.21, for Win64 (x86_64)
 --
 -- Host: localhost    Database: databast_be
@@ -96,6 +98,32 @@ LOCK TABLES `finding` WRITE;
 /*!40000 ALTER TABLE `finding` DISABLE KEYS */;
 INSERT INTO `finding` VALUES (5,'samruddhi',1,'dddd','fsgsgdgdg','2008-11-11 13:23:44'),(6,'samruddhi',1,'kkkk','fsgsgdgdg','2008-11-11 13:23:44'),(7,'samruddhi',1,'mmmmm','fsgsgdgdg','2008-11-11 13:23:44'),(8,'samruddhi',4,'asdfgh','fsgsgdgdg','2008-11-11 13:23:44'),(9,'samruddhi',5,'ddddkjhgf','fsgsgdgdg','2008-11-11 13:23:44'),(10,'samruddhi',6,'sdfgdtyrtjtujt','fsgsgdgdg','2008-11-11 13:23:44'),(11,'samruddhi',1,'checking','checnking','2020-10-01 22:02:00'),(12,'samruddhi',1,'xcvbn','zxcvbnm','2020-10-29 17:23:00'),(13,'samruddhi',1,'latest','latest','2020-11-06 20:38:00'),(14,'samruddhi',1,'entry number 10','css testing','2020-11-07 16:37:00'),(15,'samruddhi',1,'chekindfsnqlnfdgjfyhg','csdrettynbvsegrj','2020-11-07 04:45:00'),(16,'samruddhi',1,'new finding','new evidence','2020-11-19 19:08:00'),(17,'samruddhi',1,'asdfghjkl','asdfghjkl','2020-11-24 21:06:00');
 /*!40000 ALTER TABLE `finding` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `memory`
+--
+
+DROP TABLE IF EXISTS `memory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `memory` (
+  `vmid` int DEFAULT NULL,
+  `LAST_POLL` varchar(59) NOT NULL,
+  `path` varchar(150) DEFAULT NULL,
+  `hash` varchar(150) DEFAULT NULL,
+  PRIMARY KEY (`LAST_POLL`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `memory`
+--
+
+LOCK TABLES `memory` WRITE;
+/*!40000 ALTER TABLE `memory` DISABLE KEYS */;
+INSERT INTO `memory` VALUES (1,'1600581012.62573','E:\\memory\\8_1600581012.6257299.mem.gz','2548a8d11df5ac4050def0ce45b424325b779645762c3875fe804269c2e527f7'),(2,'1600581013.62100','E:\\memory\\8_1600581012.6257301.mem.gz','2548a8d11df5ac4050def0ce45b424325b779645762c3975fe804269c2e527t2'),(1,'1600581013.62573','E:\\memory\\8_1600581012.6257275.mem.gz','2548a8d11df5ac4050def0ce45b424325b779645762c3975fe804269c2e527f8'),(1,'1600581013.62574','E:\\memory\\8_1600581012.6257276.mem.gz','2548a8d11df5ac4050def0ce45b424325b779645762c3975fe804269c2e527f9'),(2,'1600581013.62590','E:\\memory\\8_1600581012.6257299.mem.gz','2548a8d11df5ac4050def0ce45b424325b779645762c3975fe804269c2e527t0'),(2,'1600581013.62597','E:\\memory\\8_1600581012.6257302.mem.gz','2548a8d11df5ac4050def0ce45b424325b779645762c3975fe804269c2e527t3'),(2,'1600581013.62599','E:\\memory\\8_1600581012.6257300.mem.gz','2548a8d11df5ac4050def0ce45b424325b779645762c3975fe804269c2e527t1');
+/*!40000 ALTER TABLE `memory` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -304,4 +332,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-12-13 17:27:14
+-- Dump completed on 2020-12-15 20:21:49

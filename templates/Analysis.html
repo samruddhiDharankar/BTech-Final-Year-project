@@ -38,6 +38,52 @@ td, th {
 }
 */
 </style>
+
+<script>
+window.onload = function() {
+ 
+var dataPoints = [];
+ 
+var chart = new CanvasJS.Chart("chartContainer", {
+  animationEnabled: true,
+  theme: "light2",
+  zoomEnabled: true,
+  title: {
+    text: "CPU Value"
+  },
+  axisY: {
+    title: "CPU",
+    titleFontSize: 24
+  },
+  data: [{
+    type: "line",
+    dataPoints: dataPoints
+  }]
+});
+
+function addData(data) {
+
+  var dps = data.CPU;
+  console.log(dps);
+  for (var i = 0; i < dps.length; i++) {
+    dataPoints.push({
+      x: new Date(dps[i][0]),
+      y: dps[i][1]
+    });
+  }
+  chart.render();
+}
+
+// $.getJSON("/getjson",addData);
+
+//Both method works.
+
+var data = {{data | safe}};
+addData(data);
+
+}
+</script>
+
 </head>
 <body>
 
@@ -49,54 +95,47 @@ td, th {
       <li><a href="/display_table">Memory</a></li>
     </ul>
     <ul class="nav navbar-nav navbar-right">
-    <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
-        <ul class="dropdown-menu">
-          <li><a href="#">Settings</a></li>
-          <li><a href="#">Switch User</a></li>
-        </ul>
+      <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Account<span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="#">Settings</a></li>
+            <li><a href="#">Switch User</a></li>
+          </ul>
       </li>
       <li><a href="/login"><button type="button" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-log-out"></span>Log Out</button></a></li>
     </ul>
-  </div>
 </nav>
 
-</br>
-</br>
-</br></br></br></br>
+</br></br></br></br></br></br>
 
 <div>
+  <form action="{{url_for('filter')}}" class="form" method = "GET", "POST">
 
-<form action="{{url_for('filter')}}" class="form" method = "GET", "POST">
+    <select name="VMID" id="VMID" method="GET","POST" action="/filter">
+      <option value= "All" SELECTED>VMID</option>
+      {% for row in value2 %}
+        <option value= "{{row[0]}}">{{row[0]}}</option>
+      {% endfor %}
+    </select>
 
-  <select name="VMID" id="VMID" method="GET","POST" action="/filter">
-    <option value= "All" SELECTED>VMID</option>
-    {% for row in value2 %}
-    <option value= "{{row[0]}}">{{row[0]}}</option>
-    {% endfor %}
-  </select>
-  <!--  -->
+    <select name = IPV4 id="IPV4" method="GET","POST" action="/filter">
+      <option value= "All" SELECTED>IPV4</option>
+      {% for row1 in value3 %}
+        <option value= "{{row1[0]}}">{{row1[0]}}</option>
+      {% endfor %}
+    </select>
 
-  <select name = IPV4 id="IPV4" method="GET","POST" action="/filter">
-    <option value= "All" SELECTED>IPV4</option>
-    {% for row1 in value3 %}
-    <option value= "{{row1[0]}}">{{row1[0]}}</option>
-    {% endfor %}
-  </select>
-
-  <input type="submit" value=Submit>
-  <!-- <div class="form-group">
-        <button class="btn btn-primary" type="submit">Submit</button>
-  </div> -->
-
-</form>
+    <input type="submit" value=Submit>
+  </form>
 </div>
 
-</br>
-</br>
+</br></br>
+
+<div id="chartContainer" style="height: 370px; width: 70%;"></div>
+
+</br></br>
 
 <div>
 <table>
-
   <tr>
     <th>VMID</th>
     <th>Last Poll</th>
@@ -105,19 +144,18 @@ td, th {
   </tr>
 
   {% for row in value1 %}  
-           <tr> 
-               <td>{{row[0]}}</td> 
-               <td>{{row[1]}}</td> 
-               <td>{{row[2]}}</td> 
-               <td>{{row[3]}}</td> 
-               
-           </tr> 
+    <tr> 
+      <td>{{row[0]}}</td> 
+      <td>{{row[1]}}</td> 
+      <td>{{row[2]}}</td> 
+      <td>{{row[3]}}</td>            
+    </tr> 
   {% endfor %}  
-
 </table>
 </div>
 
-
-
+</br></br></br>
+<script src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+<script src="https://canvasjs.com/assets/script/jquery.canvasjs.min.js"></script>
 </body>
 </html>

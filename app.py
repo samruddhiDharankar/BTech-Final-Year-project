@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, flash, url_for, session
+from flask import Flask, render_template, request, redirect, flash, url_for, session, json, jsonify, abort
 from flask_sqlalchemy import SQLAlchemy
 from flask_mysqldb import MySQL,MySQLdb
 from MySQLdb import escape_string as thwart
@@ -9,7 +9,11 @@ import sqlite3
 import time
 import random
 import subprocess
-
+import json
+import html
+# from flask_cors import CORS, cross_origin
+# cors = CORS(app)
+# app.config['CORS_HEADERS'] = 'Content-Type'
   
 app = Flask(__name__)
 
@@ -17,16 +21,15 @@ SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
-# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/database_be'
-# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-# conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="database_be") 
-
+#SqlAlchemy Database Configuration With Mysql
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/databast_be'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
+#for regular mysql
 conn = MySQLdb.connect(host="localhost",user="root",password="1234",db="databast_be")
 cursor = conn.cursor()
+
+
 
 @app.route('/', methods=['GET'])
 def index():
@@ -59,7 +62,7 @@ def login():
 			cursor.execute(query1,val1)
 			conn.commit()
 
-			session['user_name'] = attempted_username						
+			session['user_name'] = attempted_username					#session saved for USER_NAME	
 
 			return redirect(url_for('caseManage'))
 
@@ -185,62 +188,102 @@ def insert():
 		return redirect(url_for('Overview'))
 
 
-@app.route('/fetch', methods=['GET'])
-def index1():
-	return redirect(url_for('fetch'))
+# @app.route('/fetch', methods=['GET'])
+# def index1():
+# 	return redirect(url_for('fetch'))
 
 
-@app.route('/fetch', methods=['GET','POST'])
-def fetch():
+# @app.route('/fetch', methods=['GET','POST'])
+# def fetch():
 
-	#print(request.method)
-	cursor = conn.cursor()
+# 	#print(request.method)
+# 	cursor = conn.cursor()
 
-	if(request.method == "GET"or "POST"):
+# 	if(request.method == "GET"or "POST"):
 		
-		#now = datetime.now()
-		query1 = "select distinct vmid from mems";
-		cursor.execute(query1)
-		result = cursor.fetchall()
-		myresult=sorted(result)
-		myresult = str(myresult)
-		myresult= re.sub('[(,)]','',myresult)
-		myresult= myresult[1:-1:2]
+# 		#now = datetime.now()
+# 		query1 = "select distinct vmid from mems";
+# 		cursor.execute(query1)
+# 		result = cursor.fetchall()
+# 		myresult=sorted(result)
+# 		myresult = str(myresult)
+# 		myresult= re.sub('[(,)]','',myresult)
+# 		myresult= myresult[1:-1:2]
 		
-	#	for row in myresult:
+# 	#	for row in myresult:
 			
-	#		print(row)
+# 	#		print(row)
 
-	return render_template("fetch.html",myresult=myresult)
+# 	return render_template("fetch.html",myresult=myresult)
 
-def index2():
-	return redirect(url_for('fetch'))
-
-
-
-@app.route('/fetch', methods=['GET','POST'])
-def afterfetch():
-	fetch()
-	print(request.method)
-	cursor = conn.cursor()
-
-	if(request.method == "GET"or "POST"):
-		vr = request.form.get("vmid")
-		print(request.method)
-		print(vr)
-
-		cursor.execute("SELECT path FROM mems WHERE VMID= %s", (vr))
-
-		my = cursor.fetchall()
-		res=my[13:]
-		for h in my:
-			subprocess.run(["scp", res, "prasad@192.168.43.198:my"])
-	return render_template("fetch.html",res=res)
+# def index2():
+# 	return redirect(url_for('fetch'))
 
 
-@app.route('/eviRepo', methods = ['POST','GET'])
-def eviRepo():
-	return render_template("eviRepo.html")
+
+# @app.route('/fetch', methods=['GET','POST'])
+# def afterfetch():
+# 	fetch()
+# 	print(request.method)
+# 	cursor = conn.cursor()
+
+# 	if(request.method == "GET"or "POST"):
+# 		vr = request.form.get("vmid")
+# 		print(request.method)
+# 		print(vr)
+
+# 		cursor.execute("SELECT path FROM mems WHERE VMID= %s", (vr))
+
+# 		my = cursor.fetchall()
+# 		res=my[13:]
+# 		for h in my:
+# 			subprocess.run(["scp", res, "prasad@192.168.43.198:my"])
+# 	return render_template("fetch.html",res=res)
+
+
+cursor.execute("SELECT DISTINCT VMID FROM memory ORDER BY VMID")
+vmid_dropdown_options1 = cursor.fetchall()
+
+
+@app.route('/fetch', methods = ['POST','GET'])
+def fetch():
+	return render_template("fetch.html",myresult = vmid_dropdown_options1)
+
+
+@app.route('/fetch1', methods = ['GET', 'POST'])
+def fetch1():
+	if request.method == 'GET' or 'POST':
+		VMID = request.args.get("VMID")
+		print(VMID)
+		strqr="SELECT path FROM memory WHERE VMID='%s'"% VMID
+		
+		cursor.execute(strqr)
+		qq = cursor.fetchall()
+		
+		for h in qq:
+			h=str(h)
+			h=h[2:-3]
+			#print(h)
+			res=h[12:]
+			res=(str(res))
+			cc=("E:\memory\\")
+			cc=cc+str(res)
+			print(cc)
+			#subprocess.run(["scp",res, cc])
+			file = open(cc, 'w+')
+			#p = subprocess.Popen(["scp", res,cc])
+			#sts = p.wait()
+		return render_template("fetch.html",myresult = vmid_dropdown_options1,value1=qq)
+			# strqry1="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
+			# print(strqry1)
+			# cursor.execute(strqry1)
+			# query98 = cursor.fetchall()
+			# return render_template("Analysis.html", value1 = query98, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+
+
+# @app.route('/eviRepo', methods = ['POST','GET'])
+# def eviRepo():
+# 	return render_template("eviRepo.html")
 
 
 cursor.execute("SELECT DISTINCT VMID FROM vmdb ORDER BY VMID")
@@ -249,14 +292,27 @@ vmid_dropdown_options = cursor.fetchall()
 cursor.execute("SELECT DISTINCT IPV4 FROM vmdb")
 ipv4_dropdown_options = cursor.fetchall()
 
+with open('./cpu.json', 'r') as myfile:
+    json1 = myfile.read()
+
+#print(json1) #just to confirm
+@app.route("/getjson", methods = ['POST','GET'])
+def json_():
+   data = json1
+   return data
+
+# {"this":"is", "just":"a test"}
 
 @app.route('/Analysis', methods = ['POST','GET'])
 def Analysis():
 	cursor.execute("select * from vmdb")
 	query = cursor.fetchall()
+	# data = map(json1,query)
+	# print(data)
+	# return jsonify({json1 : json1})
+	return render_template("Analysis.html",data = json1, value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
 
-	return render_template("Analysis.html", value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
-
+# json.dumps(json1)
 
 @app.route('/filter', methods = ['GET', 'POST'])
 def filter():
@@ -279,7 +335,7 @@ def filter():
 		print(strqry)
 		cursor.execute(strqry)
 		query9 = cursor.fetchall()
-		return render_template("Analysis.html", value1 = query9, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
+		return render_template("Analysis.html", data = json1, value1 = query9, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
 
 
 @app.route('/display_table', methods = ['POST','GET'])
