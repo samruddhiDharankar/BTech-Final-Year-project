@@ -17,24 +17,16 @@ SESSION_TYPE = 'filesystem'
 app.config.from_object(__name__)
 Session(app)
 
-#SqlAlchemy Database Configuration With Mysql
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/database_be'
+# app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://sammy:root@localhost/database_be'
+# app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+# conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="database_be") 
+
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/databast_be'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-#for regular mysql
-conn = MySQLdb.connect(host="localhost",user="sammy",password="root",db="database_be") 
-
-#app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql://root:1234@localhost/databast_be'
-#app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-
-#for regular mysql
-#conn = MySQLdb.connect(host="localhost",user="root",password="1234",db="databast_be")
+conn = MySQLdb.connect(host="localhost",user="root",password="1234",db="databast_be")
 cursor = conn.cursor()
-
-
-
-
-
 
 @app.route('/', methods=['GET'])
 def index():
@@ -78,7 +70,8 @@ def login():
 def caseManage():
 	if(request.method == "POST"):
 		attempted_caseID = request.form.get("caseID")
-		attempted_investigatorID = request.form.get("investigatorID")
+		# attempted_investigatorID = request.form.get("investigatorID")
+
 		attempted_casePassword = request.form.get("casePassword")
 		
 
@@ -135,7 +128,8 @@ def newCase():
 		conn.commit()
 
 
-	return render_template("newCase.html")	
+	# return render_template("newCase.html")	
+	return redirect(url_for('Overview'))
 
 
 #Finding table in database db_name
@@ -176,7 +170,8 @@ def insert():
 		Description = request.form['Description_of_the_Finding']
 		Evidence_Details = request.form['Evidence_details']
 		#File = request.form('File')
-		Datetime_of_the_Finding = request.form['findingtime']
+		# Datetime_of_the_Finding = request.form['findingtime']
+		Datetime_of_the_Finding = datetime.now()
 		name = session.get('user_name')
 		case_id = session.get('case_id')
 
