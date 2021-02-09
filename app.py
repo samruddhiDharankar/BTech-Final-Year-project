@@ -11,6 +11,10 @@ import random
 import subprocess
 import json
 import html
+import subprocess
+import os
+from werkzeug.utils import secure_filename
+from flask import Markup
 # from flask_cors import CORS, cross_origin
 # cors = CORS(app)
 # app.config['CORS_HEADERS'] = 'Content-Type'
@@ -28,7 +32,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 #for regular mysql
 conn = MySQLdb.connect(host="localhost",user="root",password="1234",db="databast_be")
 cursor = conn.cursor()
+path = os.getcwd()
+# file Upload
+app.secret_key = "secret key"
+UPLOAD_FOLDER = os.path.join(path,'fetched')
 
+# Make directory if uploads is not exists
+if not os.path.isdir(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/', methods=['GET'])
@@ -253,6 +265,7 @@ def fetch():
 @app.route('/fetch1', methods = ['GET', 'POST'])
 def fetch1():
 	if request.method == 'GET' or 'POST':
+		cc=-1
 		VMID = request.args.get("VMID")
 		print(VMID)
 		strqr="SELECT path FROM memory WHERE VMID='%s'"% VMID
@@ -261,18 +274,29 @@ def fetch1():
 		qq = cursor.fetchall()
 		
 		for h in qq:
+			
 			h=str(h)
-			h=h[2:-3]
+			g=h[2:-3]
 			#print(h)
-			res=h[12:]
+			res=g[12:]
 			res=(str(res))
-			cc=("E:\memory\\")
+			#cc=("E:\memory\\")
+			d=("\\fetched")
+			cc=UPLOAD_FOLDER+d
 			cc=cc+str(res)
 			print(cc)
 			#subprocess.run(["scp",res, cc])
 			file = open(cc, 'w+')
-			#p = subprocess.Popen(["scp", res,cc])
-			#sts = p.wait()
+			
+		isExist = os.path.exists(cc) 
+		if(cc==-1):
+			message = Markup("VMID not selected")
+		elif(isExist==True):
+			message = Markup("Done!!!Check Fetched Folder")
+		else:	
+			message = Markup("Successfully Fetched!!!!")
+		flash(message)
+		
 		return render_template("fetch.html",myresult = vmid_dropdown_options1,value1=qq)
 			# strqry1="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
 			# print(strqry1)
