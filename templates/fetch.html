@@ -62,15 +62,23 @@
 			</br></br></br></br></br></br>
 
 			<div>
-				<form action="{{url_for('fetch1')}}" class="form" method="GET" , "POST">
-					<select name="VMID" id="VMID" method="GET" ,"POST" action="/fetch1">
-						<option value="All" SELECTED>VMID</option>
-							{% for row in myresult %}
-								<option value="{{row[0]}}">{{row[0]}}</option>
-							{% endfor %}
-					</select>
-					<input type="submit" value=Submit>
-				</form>
+								<form action="{{url_for('fetch1')}}" class="form" method = "GET", "POST">
+								  <select name="VMID" id="VMID" method="GET","POST" action="/fetch1">
+								    <option value= "All" SELECTED>VMID</option>
+									
+								    {% for row in myresult %}
+								    <option value= "{{row[0]}}">{{row[0]}}</option>
+								    {% endfor %}
+								  </select>
+								  <input type="submit" value=Submit><br> 
+									{% for message in get_flashed_messages() %}
+								{{ message|safe }}
+									{% endfor %}
+								  <br>
+								  
+								  
+									 			
+								</form>
 			</div>
 
         
