@@ -69,7 +69,12 @@
 								<option value="{{row[0]}}">{{row[0]}}</option>
 							{% endfor %}
 					</select>
-					<input type="submit" value=Submit>
+					<input type="submit" value=Submit></br>
+					{% for message in get_flashed_messages() %}
+							{{ message|safe }}
+								{% endfor %}
+					<br>
+
 				</form>
 			</div>
 

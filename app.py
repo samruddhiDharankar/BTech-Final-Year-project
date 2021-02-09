@@ -11,6 +11,9 @@ import random
 import subprocess
 import json
 import html
+import os
+from werkzeug.utils import secure_filename
+from flask import Markup
 # from flask_cors import CORS, cross_origin
 # cors = CORS(app)
 # app.config['CORS_HEADERS'] = 'Content-Type'
@@ -273,6 +276,15 @@ def fetch1():
 			file = open(cc, 'w+')
 			#p = subprocess.Popen(["scp", res,cc])
 			#sts = p.wait()
+		isExist = os.path.exists(cc) 
+		if(cc==-1):
+			message = Markup("VMID not selected")
+		elif(isExist==True):
+			message = Markup("Done!!!Check Fetched Folder")
+		else:	
+			message = Markup("Successfully Fetched!!!!")
+		flash(message)
+		
 		return render_template("fetch.html",myresult = vmid_dropdown_options1,value1=qq)
 			# strqry1="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
 			# print(strqry1)
@@ -329,6 +341,13 @@ def filter():
 
 		#cursor.execute("SELECT * FROM vmdb WHERE VMID=%S",str(VMID))
 		#VMID = 18
+
+		# input_dict = json.loads(json1)
+
+		# output_dict = [x for x in input_dict if x['VMID'] == VMID]
+
+		# json2 = json.dumps(output_dict)
+
 		print(VMID)
 		print(IPV4)
 		strqry="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
