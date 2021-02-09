@@ -32,6 +32,15 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 conn = MySQLdb.connect(host="localhost",user="root",password="1234",db="databast_be")
 cursor = conn.cursor()
 
+path = os.getcwd()
+# file Upload
+app.secret_key = "secret key"
+UPLOAD_FOLDER = os.path.join(path,'fetched')
+
+# Make directory if uploads is not exists
+if not os.path.isdir(UPLOAD_FOLDER):
+    os.mkdir(UPLOAD_FOLDER)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 @app.route('/', methods=['GET'])
@@ -256,6 +265,7 @@ def fetch():
 @app.route('/fetch1', methods = ['GET', 'POST'])
 def fetch1():
 	if request.method == 'GET' or 'POST':
+		cc=-1
 		VMID = request.args.get("VMID")
 		print(VMID)
 		strqr="SELECT path FROM memory WHERE VMID='%s'"% VMID
@@ -264,18 +274,20 @@ def fetch1():
 		qq = cursor.fetchall()
 		
 		for h in qq:
+			
 			h=str(h)
-			h=h[2:-3]
+			g=h[2:-3]
 			#print(h)
-			res=h[12:]
+			res=g[12:]
 			res=(str(res))
-			cc=("E:\memory\\")
+			#cc=("E:\memory\\")
+			d=("\\fetched")
+			cc=UPLOAD_FOLDER+d
 			cc=cc+str(res)
 			print(cc)
 			#subprocess.run(["scp",res, cc])
 			file = open(cc, 'w+')
-			#p = subprocess.Popen(["scp", res,cc])
-			#sts = p.wait()
+			
 		isExist = os.path.exists(cc) 
 		if(cc==-1):
 			message = Markup("VMID not selected")
@@ -286,6 +298,7 @@ def fetch1():
 		flash(message)
 		
 		return render_template("fetch.html",myresult = vmid_dropdown_options1,value1=qq)
+
 			# strqry1="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
 			# print(strqry1)
 			# cursor.execute(strqry1)
@@ -304,7 +317,7 @@ vmid_dropdown_options = cursor.fetchall()
 cursor.execute("SELECT DISTINCT IPV4 FROM vmdb")
 ipv4_dropdown_options = cursor.fetchall()
 
-with open('./cpu.json', 'r') as myfile:
+with open('./cpu1.json', 'r') as myfile:
     json1 = myfile.read()
 
 #print(json1) #just to confirm
@@ -342,16 +355,16 @@ def filter():
 		#cursor.execute("SELECT * FROM vmdb WHERE VMID=%S",str(VMID))
 		#VMID = 18
 
-		# input_dict = json.loads(json1)
+		input_dict = json.loads(json1)
 
-		# output_dict = [x for x in input_dict if x['VMID'] == VMID]
+		output_dict = [x for x in input_dict if x[2] == VMID]
 
-		# json2 = json.dumps(output_dict)
-
-		print(VMID)
-		print(IPV4)
+		json2 = json.dumps(output_dict)
+		print(json2)
+		# print(VMID)
+		# print(IPV4)
 		strqry="SELECT * FROM vmdb WHERE VMID='%s'"% VMID
-		print(strqry)
+		# print(strqry)
 		cursor.execute(strqry)
 		query9 = cursor.fetchall()
 		return render_template("Analysis.html", data = json1, value1 = query9, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
