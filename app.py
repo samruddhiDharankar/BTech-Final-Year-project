@@ -143,8 +143,8 @@ def newCase():
 		conn.commit()
 
 
-	# return render_template("newCase.html")	
-	return redirect(url_for('Overview'))
+	return render_template("newCase.html")	
+	# return redirect(url_for('Overview'))
 
 
 #Finding table in database db_name
@@ -317,7 +317,7 @@ vmid_dropdown_options = cursor.fetchall()
 cursor.execute("SELECT DISTINCT IPV4 FROM vmdb")
 ipv4_dropdown_options = cursor.fetchall()
 
-with open('./cpu1.json', 'r') as myfile:
+with open('./cpu2.json', 'r') as myfile:
     json1 = myfile.read()
 
 #print(json1) #just to confirm
@@ -326,7 +326,11 @@ def json_():
    data = json1
    return data
 
-# {"this":"is", "just":"a test"}
+input_dict = json.loads(json1)
+
+output_dict = [x for x in input_dict if x[2] == 14]
+
+json2 = json.dumps(output_dict)
 
 @app.route('/Analysis', methods = ['POST','GET'])
 def Analysis():
@@ -338,6 +342,8 @@ def Analysis():
 	return render_template("Analysis.html",data = json1, value1 = query, value2 = vmid_dropdown_options, value3 = ipv4_dropdown_options)
 
 # json.dumps(json1)
+
+
 
 @app.route('/filter', methods = ['GET', 'POST'])
 def filter():
@@ -355,11 +361,7 @@ def filter():
 		#cursor.execute("SELECT * FROM vmdb WHERE VMID=%S",str(VMID))
 		#VMID = 18
 
-		input_dict = json.loads(json1)
 
-		output_dict = [x for x in input_dict if x[2] == VMID]
-
-		json2 = json.dumps(output_dict)
 		print(json2)
 		# print(VMID)
 		# print(IPV4)
