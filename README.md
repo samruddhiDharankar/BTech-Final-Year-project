@@ -1,5 +1,5 @@
-## INSTALLATION
-### Prerequisites
+# INSTALLATION
+## Prerequisites
 **Python**
 <br />
 
@@ -39,12 +39,30 @@
 <br />
 
 **SCREENSHOTS**
-1. Login Page
-    ![](static/css/images/screenshots/Login.png)
-    <br />
-2. Load Case Page
-    ![](static/css/images/screenshots/loadCase.png)
-    <br />
-3. New Case Page
-    ![](static/css/images/screenshots/newCase.png)
-    <br />
+### 1. Login Page
+![](static/css/images/screenshots/Login.png)
+<br />
+### 2. Load Case Page
+![](static/css/images/screenshots/loadCase.png)
+<br />
+### 3. New Case Page
+![](static/css/images/screenshots/newCase.png)
+<br />
+### 4. Overview
+![](static/css/images/screenshots/overview.png)
+<br />
+### 6. Finding New Entry
+![](static/css/images/screenshots/newFindingEntry.png)
+<br />
+### 8. Evidence Repo
+![](static/css/images/screenshots/submitEviRepo.png)
+<br />
+### 10. Analysis
+![](static/css/images/screenshots/analysis.png)
+<br />
+### 11. Memory View
+![](static/css/images/screenshots/memView.png)
+<br />
+### 12. Hex View
+![](static/css/images/screenshots/hexView.png)
+<br />
