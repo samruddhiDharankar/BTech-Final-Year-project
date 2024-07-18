@@ -1,68 +1,86 @@
-# INSTALLATION
-## Prerequisites
-**Python**
-<br />
+# BTech Final Year Project
 
-1. pip
-    ```bash
-    pip install pip
-    ```
-2. Flask
-    ```bash
+A web application designed to manage and analyze digital evidence for forensic purposes.
+
+## Table of Contents
+- [Installation](#installation)
+- [Usage](#usage)
+- [Screenshots](#screenshots)
+- [Features](#features)
+- [Technologies Used](#technologies-used)
+  
+## Installation
+
+### Prerequisites
+- Python
+- pip
+
+### Steps
+1. Install Flask:
+    ```sh
     pip install flask
     ```
-3. Mysql
-    ```bash
+2. Install MySQL:
+    ```sh
     pip install flask-mysqldb
     ```
-4. Go to the folder where you downloaded the project file
-
-5. Then run once
-    ```bash
+3. Navigate to the project directory.
+4. Set environment variables:
+    ```sh
     set FLASK_APP=app.py
-    ```
-    ```bash
     set FLASK_ENV=development
-    ```
-    ```bash
     set FLASK_DEBUG=1
     ```
-6. To run the app
-    ```bash
+5. Run the application:
+    ```sh
     flask run
     ```
-    ![](static/css/images/cmd-running.png)
-    
-    **MAKE SURE THAT DEBUG MODE IS ON ELSE THE CSS WILL NOT WORK**
-7. Copy the url from the command line and paste it in chrome
+6. Open the provided URL in your browser.
 
-<br />
+## Usage
 
-**SCREENSHOTS**
+- Ensure the debug mode is enabled for proper CSS functionality.
+- Copy the URL from the command line output and paste it into your browser to access the app.
+  ![](static/css/images/cmd-running.png)
+
+## Screenshots
+
 ### 1. Login Page
-![](static/css/images/screenshots/Login.png)
-<br />
+![Login Page](static/css/images/screenshots/Login.png)
+
 ### 2. Load Case Page
-![](static/css/images/screenshots/loadCase.png)
-<br />
+![Load Case Page](static/css/images/screenshots/loadCase.png)
+
 ### 3. New Case Page
-![](static/css/images/screenshots/newCase.png)
-<br />
+![New Case Page](static/css/images/screenshots/newCase.png)
+
 ### 4. Overview
-![](static/css/images/screenshots/overview.png)
-<br />
-### 6. Finding New Entry
-![](static/css/images/screenshots/newFindingEntry.png)
-<br />
-### 8. Evidence Repo
-![](static/css/images/screenshots/submitEviRepo.png)
-<br />
-### 10. Analysis
-![](static/css/images/screenshots/analysis.png)
-<br />
-### 11. Memory View
-![](static/css/images/screenshots/memView.png)
-<br />
-### 12. Hex View
-![](static/css/images/screenshots/hexView.png)
-<br />
+![Overview](static/css/images/screenshots/overview.png)
+
+### 5. Finding New Entry
+![Finding New Entry](static/css/images/screenshots/newFindingEntry.png)
+
+### 6. Evidence Repo
+![Evidence Repo](static/css/images/screenshots/submitEviRepo.png)
+
+### 7. Analysis
+![Analysis](static/css/images/screenshots/analysis.png)
+
+### 8. Memory View
+![Memory View](static/css/images/screenshots/memView.png)
+
+### 9. Hex View
+![Hex View](static/css/images/screenshots/hexView.png)
+
+## Features
+
+- User authentication and case management.
+- Digital evidence storage and analysis.
+- Memory and hex view functionalities.
+
+## Technologies Used
+
+- Flask
+- MySQL
+- HTML/CSS
+- JavaScript
